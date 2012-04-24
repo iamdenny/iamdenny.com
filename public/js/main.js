@@ -1,0 +1,1 @@
+var woBackground = new com.iamdenny.background();
