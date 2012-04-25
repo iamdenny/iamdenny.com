@@ -39,7 +39,7 @@ com.iamdenny.background.t0001 = jindo.$Class({
 			nHeightScale = htWindowSize.height;
 		}
 		// console.log(nWidthScale + " vs " + nHeightScale);
-		htOption['background-size'] = nWidthScale + 'px ' + nHeightScale + 'px';
+		htOption['backgroundSize'] = nWidthScale + 'px ' + nHeightScale + 'px';
 		this._welWrap.css(htOption);
 	},
 });
