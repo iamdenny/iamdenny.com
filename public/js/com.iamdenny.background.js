@@ -10,9 +10,10 @@ com.iamdenny.background = jindo.$Class({
 		jindo.LazyLoading.load('/js/com.iamdenny.background.'+sRandomTemplate+'.js', function(){
 			self._woTemplate = new com.iamdenny.background[sRandomTemplate](welBody);
 			self._woTemplate.show(self.getWindowSize());
+			self._woTemplate.startAnimation();
 			
 			jindo.$Fn(function(){
-				self._woTemplate.show(self.getWindowSize());
+				self._woTemplate.resizeWindow(self.getWindowSize());
 			}).attach(window, 'resize');
 		});
 	},
