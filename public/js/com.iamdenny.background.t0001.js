@@ -29,7 +29,7 @@ com.iamdenny.background.t0001 = jindo.$Class({
 	},
 	
 	_prepareMarkup : function(){
-		this._welBody.appendHTML('<div id="layer" style="position:absolute;right:10px;bottom:10px; border:1px solid #000; background:#ddd; padding:10px;border-radius: 2em 1em 4em / 0.5em 3em;">레이어</div>');
+		this._welBody.appendHTML('<div id="layer" style="position:absolute;right:10px;bottom:10px; font-size:1.2em; border:1px solid #000; background:#ddd; padding:10px;border-radius: 2em 1em 4em / 0.5em 3em;"></div>');
 	},
 	
 	show : function(htWindowSize){
