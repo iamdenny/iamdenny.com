@@ -1,25 +1,36 @@
 com.iamdenny.background = jindo.$Class({
 	_woTemplate : null,
+	_welBody : null,
+	_welWrap : null,
+	_welTemplateName : null,
 	
 	$init : function(){
 		var self = this;
 		var sRandomTemplate = this._getRandomTemplate();
-		var welBody = jindo.$Element('body');
-		var welWrap = jindo.$Element('wrap');
+		this._welBody = jindo.$Element('body');
+		this._welWrap = jindo.$Element('wrap');
 
 		jindo.LazyLoading.load('/js/com.iamdenny.background.'+sRandomTemplate+'.js', function(){
-			self._woTemplate = new com.iamdenny.background[sRandomTemplate](welBody);
+			self._woTemplate = new com.iamdenny.background[sRandomTemplate](self._welBody, self._welWrap);
 			self._woTemplate.show(self.getWindowSize());
 			self._woTemplate.startAnimation();
+			self._welTemplateName.text(self._woTemplate.getName());
 			
 			jindo.$Fn(function(){
 				self._woTemplate.resizeWindow(self.getWindowSize());
 			}).attach(window, 'resize');
 		});
+		
+		this._prepareMarkup();
+	},
+	
+	_prepareMarkup : function(){
+		this._welBody.appendHTML('<div id="_template_name" style="position:absolute;left:10px;top:10px; font-size:1.2em; border:1px solid #000; background:skyblue; padding:10px;border-radius: 2em 1em 4em / 0.5em 3em;">Loading...</div>');
+		this._welTemplateName = jindo.$Element("_template_name");
 	},
 	
 	_getRandomTemplate : function(){
-		return 't0001';
+		return 't0002';
 	},
 	
 	getWindowSize : function() {

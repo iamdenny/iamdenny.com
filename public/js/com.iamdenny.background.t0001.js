@@ -1,6 +1,7 @@
 com.iamdenny.background.t0001 = jindo.$Class({
-	
+	_sName : 'Template 0001 - Slamdunk Ver.',
 	_welBody : null,
+	_welWrap : null,
 	_sImageUrl : null,
 	_htImageSize : null,
 	_htScaledImageSize : null,
@@ -13,8 +14,9 @@ com.iamdenny.background.t0001 = jindo.$Class({
 	_htWindowSize : null,
 	_woTransition : null,
 	
-	$init : function(welBody){
+	$init : function(welBody, welWrap){
 		this._welBody = welBody;
+		this._welWrap = welWrap;
 		this._sImageUrl = "../images/slamdunk/t0001/";
 		this._htImageSize = {width : 353,height : 347};
 		this._htScaledImageSize = this._htImageSize;
@@ -28,8 +30,12 @@ com.iamdenny.background.t0001 = jindo.$Class({
 		this._woFloatingLayer = new jindo.FloatingLayer(this._welLayer); 
 	},
 	
+	getName : function(){
+		return this._sName;
+	},
+	
 	_prepareMarkup : function(){
-		this._welBody.appendHTML('<div id="layer" style="position:absolute;right:10px;bottom:10px; font-size:1.2em; border:1px solid #000; background:#ddd; padding:10px;border-radius: 2em 1em 4em / 0.5em 3em;"></div>');
+		this._welBody.appendHTML('<div id="layer" style="position:absolute;right:10px;bottom:10px; font-size:1.1em; border:1px solid #000; background:#ddd; padding:10px;border-radius: 2em 1em 4em / 0.5em 3em;"></div>');
 	},
 	
 	show : function(htWindowSize){
