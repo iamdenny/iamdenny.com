@@ -3,18 +3,23 @@ com.iamdenny.background = jindo.$Class({
 	_welBody : null,
 	_welWrap : null,
 	_welTemplateName : null,
+	_aTemplate : null,
 	
 	$init : function(){
 		var self = this;
-		var sRandomTemplate = this._getRandomTemplate();
+		
+		this._aTemplate = ['t0001', 't0002'];
 		this._welBody = jindo.$Element('body');
 		this._welWrap = jindo.$Element('wrap');
+		
+		var sRandomTemplate = this._getRandomTemplate();
 
 		jindo.LazyLoading.load('/js/com.iamdenny.background.'+sRandomTemplate+'.js', function(){
 			self._woTemplate = new com.iamdenny.background[sRandomTemplate](self._welBody, self._welWrap);
 			self._woTemplate.show(self.getWindowSize());
 			self._woTemplate.startAnimation();
 			self._welTemplateName.text(self._woTemplate.getName());
+			self._hideTemplateName();
 			
 			jindo.$Fn(function(){
 				self._woTemplate.resizeWindow(self.getWindowSize());
@@ -29,8 +34,13 @@ com.iamdenny.background = jindo.$Class({
 		this._welTemplateName = jindo.$Element("_template_name");
 	},
 	
+	_hideTemplateName : function(){
+		var woTransition = new jindo.Transition();  
+		woTransition.start(2000, this._welTemplateName.$value(), {'@opacity' : 100}).start(1000, this._welTemplateName.$value(), {'@opacity' : 0}); 
+	},
+	
 	_getRandomTemplate : function(){
-		return 't0002';
+		return this._aTemplate[Math.floor(Math.random() * this._aTemplate.length)];
 	},
 	
 	getWindowSize : function() {

@@ -27,7 +27,9 @@ com.iamdenny.background.t0001 = jindo.$Class({
 		
 		this._prepareMarkup(); 
 		this._welLayer = jindo.$Element("layer");
-		this._woFloatingLayer = new jindo.FloatingLayer(this._welLayer); 
+		this._woFloatingLayer = new jindo.FloatingLayer(this._welLayer);
+		
+		this._woTransition = new jindo.Transition(); 
 	},
 	
 	getName : function(){
@@ -67,8 +69,6 @@ com.iamdenny.background.t0001 = jindo.$Class({
 	
 	startAnimation : function(){
 		var self = this;
-		
-		this._woTransition = new jindo.Transition();
 		
 		var sEffect = this._getRandomEffect();
 		this._welLayer.text(sEffect);

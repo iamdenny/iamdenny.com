@@ -24,6 +24,8 @@ com.iamdenny.background.t0002 = jindo.$Class({
 		this._fBackgroundPositionGapX = parseFloat(0.5); // px
 		this._fBackgroundPositionMaxGapX = parseFloat(30); // px
 		this._bBackgroundPositionPlusX = true; // try to plus the GapX to PositionX
+		
+		this._woTransition = new jindo.Transition();
 	},
 	
 	getName : function(){
@@ -33,10 +35,11 @@ com.iamdenny.background.t0002 = jindo.$Class({
 	show : function(htWindowSize){
 		// console.log(htWindowSize.width + " :: " + htWindowSize.height);
 		var htOption = {
-			background:'url('+this._sImageUrl+'1.png) 50% 0 no-repeat',
+			background:'url('+this._sImageUrl+'2.png) 50% 0 no-repeat',
 			backgroundSize : '100% 100%',
 			width: '100%',
-			height: '100%'
+			height: '100%',
+			backgroundColor: '#fff'
 		};
 		
 		this._htScaledImageSize.width = htWindowSize.height * this._fImageSizeRatio;
@@ -44,13 +47,18 @@ com.iamdenny.background.t0002 = jindo.$Class({
 		// console.log(nWidthScale + " vs " + nHeightScale);
 		htOption.backgroundSize = this._htScaledImageSize.width  + 'px ' + this._htScaledImageSize.height + 'px';
 		this._htWindowSize = htWindowSize;
-		this._fBackgroundPositionMaxGapX = this._htWindowSize.width / 10; // px
+		this._fBackgroundPositionMaxGapX = this._htWindowSize.width / 20; // px
 		
 		this._nCenterX = (this._htWindowSize.width / 2) - (this._htScaledImageSize.width / 2);
 		this._nStartX = this._nCenterX - this._fBackgroundPositionMaxGapX;
 		this._nEndX = this._nCenterX + this._fBackgroundPositionMaxGapX;
 		
 		this._welBody.css(htOption);
+		
+		htOption.background = 'url('+this._sImageUrl+'1.png) 50% 0 no-repeat';
+		htOption.backgroundColor = 'none';
+		
+		this._welWrap.css(htOption);
 	},
 	
 	resizeWindow : function(htWindowSize){
@@ -59,9 +67,35 @@ com.iamdenny.background.t0002 = jindo.$Class({
 	
 	startAnimation : function(){
 		var self = this;
-		
 
-		 
+		this._woTransition.fps(30).abort().start(2000, 
+			this._welBody.$value(), {
+				'@backgroundPositionX' : jindo.Effect.cubicEaseInOut(this._nStartX+'px', this._nEndX+'px')
+			},
+			this._welWrap.$value(), {
+				'@backgroundPositionX' : jindo.Effect.easeOutQuad(this._nStartX+'px', this._nEndX+'px')
+			}
+		);
+		
+		this._woTransition.attach("end", function() { 
+			var nTemp;
+			// console.log(Math.round(self._nEndX) + " :: " + Math.round(self._welBody.css('backgroundPositionX').replace('px','')))
+			if(Math.round(self._nEndX) == Math.round(self._welBody.css('backgroundPositionX').replace('px',''))){
+					nTemp = self._nEndX;
+				self._nEndX = self._nStartX;
+				self._nStartX = nTemp;
+				// console.log('changed')
+			}
+			self._woTransition.start(2000, 
+				self._welBody.$value(), {
+					'@backgroundPositionX' : jindo.Effect.cubicEaseInOut(self._nStartX+'px', self._nEndX+'px')
+				},
+				self._welWrap.$value(), {
+					'@backgroundPositionX' : jindo.Effect.easeOutQuad(self._nStartX+'px', self._nEndX+'px')
+				}
+			);
+		});
+		
 	},
 	
 	stopAnimation : function(){
