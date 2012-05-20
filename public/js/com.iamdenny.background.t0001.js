@@ -32,10 +32,6 @@ com.iamdenny.background.t0001 = jindo.$Class({
 		this._woTransition = new jindo.Transition(); 
 	},
 	
-	getName : function(){
-		return this._sName;
-	},
-	
 	_prepareMarkup : function(){
 		this._welBody.appendHTML('<div id="layer" style="position:absolute;right:10px;bottom:10px; font-size:1.1em; border:1px solid #000; background:#ddd; padding:10px;border-radius: 2em 1em 4em / 0.5em 3em;"></div>');
 	},
@@ -61,10 +57,6 @@ com.iamdenny.background.t0001 = jindo.$Class({
 		this._nEndX = this._nCenterX + this._fBackgroundPositionMaxGapX;
 		
 		this._welBody.css(htOption);
-	},
-	
-	resizeWindow : function(htWindowSize){
-		this.show(htWindowSize);
 	},
 	
 	startAnimation : function(){
@@ -140,4 +132,4 @@ com.iamdenny.background.t0001 = jindo.$Class({
 		this._fBackgroundPositionX = nCenterX + this._fBackgroundPositionGapSumX;
 		return this._fBackgroundPositionX + 'px 0';
 	}
-});
+}).extend(com.iamdenny.background.abstract);

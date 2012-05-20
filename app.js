@@ -36,4 +36,4 @@ app.get('/', routes.index);
 var nPort = process.env.C9_PORT || 5030;
 app.listen(nPort);
 
-console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+console.log("Express server listening on port %d in %s mode", nPort, app.settings.env);

@@ -28,10 +28,6 @@ com.iamdenny.background.t0002 = jindo.$Class({
 		this._woTransition = new jindo.Transition();
 	},
 	
-	getName : function(){
-		return this._sName;
-	},
-	
 	show : function(htWindowSize){
 		// console.log(htWindowSize.width + " :: " + htWindowSize.height);
 		var htOption = {
@@ -59,10 +55,6 @@ com.iamdenny.background.t0002 = jindo.$Class({
 		htOption.backgroundColor = 'none';
 		
 		this._welWrap.css(htOption);
-	},
-	
-	resizeWindow : function(htWindowSize){
-		this.show(htWindowSize);
 	},
 	
 	startAnimation : function(){
@@ -119,4 +111,4 @@ com.iamdenny.background.t0002 = jindo.$Class({
 		this._fBackgroundPositionX = nCenterX + this._fBackgroundPositionGapSumX;
 		return this._fBackgroundPositionX + 'px 0';
 	}
-});
+}).extend(com.iamdenny.background.abstract);

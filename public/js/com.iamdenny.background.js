@@ -8,7 +8,7 @@ com.iamdenny.background = jindo.$Class({
 	$init : function(){
 		var self = this;
 		
-		this._aTemplate = ['t0001', 't0002'];
+		this._aTemplate = ['t0001', 't0002', 't0003'];
 		this._welBody = jindo.$Element('body');
 		this._welWrap = jindo.$Element('wrap');
 		
