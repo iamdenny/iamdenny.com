@@ -1,7 +1,10 @@
-!!!
+!!! 5
 html
   head
     title= title
+    meta(property="og:title", content=title)
+    meta(property="og:description", content=description)
+    meta(property="og:image", content=thumbnail)
     link(rel='stylesheet', href='/stylesheets/style.css')
     //link(rel='stylesheet', href='http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css')
     link(rel='stylesheet', href='http://code.jquery.com/ui/1.8.20/themes/excite-bike/jquery-ui.css')
