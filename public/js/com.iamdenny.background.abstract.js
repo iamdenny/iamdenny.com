@@ -82,5 +82,32 @@ com.iamdenny.background.abstract = jindo.$Class({
 	
 	resizeWindow : function(htWindowSize){
 		this.show(htWindowSize);
+	},
+    
+    getWindowSize : function() {
+		var myWidth = 0, myHeight = 0;
+		if( typeof( window.innerWidth ) == 'number' ) {
+			//Non-IE
+		  	myWidth = window.innerWidth;
+		    myHeight = window.innerHeight;
+		} else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+		    //IE 6+ in 'standards compliant mode'
+		    myWidth = document.documentElement.clientWidth;
+		    myHeight = document.documentElement.clientHeight;
+		} else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+		    //IE 4 compatible
+		    myWidth = document.body.clientWidth;
+		    myHeight = document.body.clientHeight;
+		}
+		return {width : myWidth, height : myHeight};
+	},
+    
+    getRandom : function(nMin, nMax){
+		// num = Math.random()  // num is random, from 0 to 1 
+		// If you need random floating-point numbers in the range from A to B (A<B), use this code:
+		// num = A + (B-A)*Math.random()  // num is random, from A to B 
+		// For a random integer in the range from M to N (where M and N are two integers, M<N) use:
+		// num = Math.floor(M + (1+N-M)*Math.random())  // num is random integer from M to N
+		return Math.floor(nMax + (1+nMin-nMax)*Math.random()); 
 	}
 });

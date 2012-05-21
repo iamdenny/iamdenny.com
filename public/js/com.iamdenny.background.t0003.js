@@ -5,30 +5,51 @@ com.iamdenny.background.t0003 = jindo.$Class({
 	_sImageUrl : null,
 	_bAllImagesLoaded : null,
 	_nCurrentImageIndex : null,
+    _oTimer : null,
+    _woTransition : null,
+    _nPlusSize : null,
 	
 	$init : function(welBody, welWrap){
-		this._welBody = welBody;
+		this._welBody = welWrap;
 		this._welWrap = welWrap;
 		this._sImageUrl = "../images/slamdunk/t0003/";
 		this._nMaxImageCount = 21;
-		
+        this._nPlusSize = 50;
+        
+		this._oTimer = new jindo.Timer();  
+        this._woTransition = new jindo.Transition();
+        
 		this._initImages();		
 	},
 
-	show : function(htWindowSize){
-		var self = this;
-		if(this._splash(htWindowSize)){
-			this._showImage(htWindowSize);
-			
-			var oTimer = new jindo.Timer();  
-			oTimer.start(function() {
-				self._showImage(htWindowSize);
-				return true;
-			}, 3000);  			
-		}
-	},
+    startAnimation : function(){
+        var self = this
+        if(this._splash()){
+            this._oTimer.start(function() {
+        		self._showImage();
+                var nXStart = self.getRandom(48, 52),
+                    nXEnd = self.getRandom(45, 55),
+                    nYStart = self.getRandom(48, 52),
+                    nYEnd = self.getRandom(45, 55),
+                    nSStart = self.getRandom(100, 120),
+                    nSEnd = self.getRandom(100, 120);
+                self._woTransition.fps(30).abort().start(3000, self._welBody.$value(), {
+                    '@opacity' : [0.6, 1],
+                    '@backgroundPositionX' : [nXStart + '%', nXEnd + '%'],
+                    '@backgroundPositionY' : [nYStart + '%', nYEnd + '%'],
+                    '@backgroundSize' : [nSStart + '%', nSEnd + '%']
+                });
+    			return true;
+    		}, 3000);  	
+        }
+    },
+    
+    stopAnimation : function(){
+        this._oTimer.stop();  
+    },
 	
-	resizeWindow : function(htWindowSize){
+	resizeWindow : function(){
+        var htWindowSize = this.getWindowSize();
 		var htOption = {};
 		htOption.backgroundSize = this._getBackgroundSize(this._aoImage[this._nCurrentImageIndex], htWindowSize);
 		this._welBody.css(htOption);
@@ -51,7 +72,7 @@ com.iamdenny.background.t0003 = jindo.$Class({
 		}
 	},
 	
-	_splash : function(htWindowSize){
+	_splash : function(){
 		var bReady = false;
 		if(this._bAllImagesLoaded){
 			this.closeLoadingImage();
@@ -61,20 +82,21 @@ com.iamdenny.background.t0003 = jindo.$Class({
 			this.showLoadingImage();
 			var oTimer = new jindo.Timer();  
 			oTimer.start(function() {
-				self.show(htWindowSize);
-			}, 500);  
+				self.startAnimation();
+			}, 300);  
 		}
 		return bReady;
 	},
 	
-	_showImage : function(htWindowSize){
+	_showImage : function(){
+        var htWindowSize = this.getWindowSize();
 		this._nCurrentImageIndex = this._getNextImageIndex();
 		var nCurrentImageIndex = this._nCurrentImageIndex;			
 		var htOption = {
-			background:'url('+this._sImageUrl + nCurrentImageIndex +'.jpg) 50% 50% no-repeat',
+			background : 'url('+this._sImageUrl + nCurrentImageIndex +'.jpg) 50% 50% no-repeat',
 			backgroundSize : '100% 100%',
-			width: '100%',
-			height: '100%'
+			width : '100%',
+			height : '100%'
 		};
 
 		htOption.backgroundSize = this._getBackgroundSize(this._aoImage[nCurrentImageIndex], htWindowSize);
@@ -87,13 +109,13 @@ com.iamdenny.background.t0003 = jindo.$Class({
 		var fImageSizeRatio = aoImage.width / aoImage.height;
 		var fWindowSizeRatio = htWindowSize.width / htWindowSize.height;
 		
-		console.log('fImageSizeRatio : ' + fImageSizeRatio + ', fWindowSizeRatio : ' + fWindowSizeRatio)
+		//console.log('fImageSizeRatio : ' + fImageSizeRatio + ', fWindowSizeRatio : ' + fWindowSizeRatio)
 		if(fImageSizeRatio > fWindowSizeRatio){		
-			htScaledImageWidth = htWindowSize.height * fImageSizeRatio;
-			htScaledImageHeight = htWindowSize.height;
+			htScaledImageWidth = (htWindowSize.height + this._nPlusSize) * fImageSizeRatio;
+			htScaledImageHeight = (htWindowSize.height + this._nPlusSize);
 		}else{
-			htScaledImageWidth = htWindowSize.width;
-			htScaledImageHeight = htWindowSize.width / fImageSizeRatio;
+			htScaledImageWidth = (htWindowSize.width + this._nPlusSize);
+			htScaledImageHeight = (htWindowSize.width + this._nPlusSize) / fImageSizeRatio;
 		}		
 		return htScaledImageWidth  + 'px ' + htScaledImageHeight + 'px';
 	},
