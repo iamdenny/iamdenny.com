@@ -1,0 +1,244 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "app.js",
+			"settings":
+			{
+				"buffer_size": 856,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "com.iamdenny.background = jindo.$Class({\n	_woTemplate : null,\n	_welBody : null,€\n	_welWrap : null,\n	_welTemplateName : null,\n	\n	$init : function(){\n		var self = this;\n		var sRandomTemplate = this._getRandomTemplate();\n		this._welBody = jindo.$Element('body');\n		this._welWrap = jindo.$Element('wrap');\n\n		jindo.LazyLoading.load('/js/com.iamdenny.background.'+sRandomTemplate+'.js', function(){\n			self._woTemplate = new com.iamdenny.background[sRandomTemplate](self._welBody, self._welWrap);\n			self._woTemplate.show(self.getWindowSize());\n			self._woTemplate.startAnimation();\n			self._welTemplateName.text(self._woTemplate.getName());\n			\n			jindo.$Fn(function(){\n				self._woTemplate.resizeWindow(self.getWindowSize());\n			}).attach(window, 'resize');\n		});\n		\n		this._prepareMarkup();\n	},\n	\n	_prepareMarkup : function(){\n		this._welBody.appendHTML('<div id=\"_template_name\" style=\"position:absolute;left:10px;top:10px; font-size:1.2em; border:1px solid #000; background:skyblue; padding:10px;border-radius: 2em 1em 4em / 0.5em 3em;\">Loading...</div>');\n		this._welTemplateName = jindo.$Element(\"_template_name\");\n	},\n	\n	_getRandomTemplate : function(){\n		return 't0002';\n	},\n	\n	getWindowSize : function() {\n		var myWidth = 0, myHeight = 0;\n		if( typeof( window.innerWidth ) == 'number' ) {\n			//Non-IE\n		  	myWidth = window.innerWidth;\n		    myHeight = window.innerHeight;\n		} else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {\n		    //IE 6+ in 'standards compliant mode'\n		    myWidth = document.documentElement.clientWidth;\n		    myHeight = document.documentElement.clientHeight;\n		} else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {\n		    //IE 4 compatible\n		    myWidth = document.body.clientWidth;\n		    myHeight = document.body.clientHeight;\n		}\n		return {width : myWidth, height : myHeight};\n	},\n	\n	getScrollXY : function(){\n  		var scrOfX = 0, scrOfY = 0;\n  		if( typeof( window.pageYOffset ) == 'number' ) {\n			//Netscape compliant\n		    scrOfY = window.pageYOffset;\n		    scrOfX = window.pageXOffset;\n		} else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {\n		    //DOM compliant\n		    scrOfY = document.body.scrollTop;\n		    scrOfX = document.body.scrollLeft;\n		} else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {\n		    //IE6 standards compliant mode\n		    scrOfY = document.documentElement.scrollTop;\n		    scrOfX = document.documentElement.scrollLeft;\n		}\n		return {x : scrOfX, y : scrOfY };\n	}\n});\n\n",
+			"file": "public/js/com.iamdenny.background.js",
+			"file_size": 2630,
+			"file_write_time": 1335707003000000,
+			"settings":
+			{
+				"buffer_size": 2631,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "public/js/com.iamdenny.background.t0002.js",
+			"settings":
+			{
+				"buffer_size": 2825,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/nhn/Documents/workspace for desktop/iamdenny.com/untitled.sublime-project",
+		"/Users/nhn/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 0.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "app.js",
+					"settings":
+					{
+						"buffer_size": 856,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "public/js/com.iamdenny.background.js",
+					"settings":
+					{
+						"buffer_size": 2631,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								788,
+								788
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "public/js/com.iamdenny.background.t0002.js",
+					"settings":
+					{
+						"buffer_size": 2825,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 150.0,
+	"status_bar_visible": true
+}
