@@ -12,11 +12,11 @@ com.iamdenny.links = jindo.$Class({
     _initLinks : function(){
         this._aLink = new Array();
         this._aLink['Blog'] = 'http://blog.iamdenny.com';
-        this._aLink['My Book Manager'] = 'http://mybookmanager.iamdenny.com';
         this._aLink['GitHub'] = 'http://github.com/iamdenny';
         this._aLink['Prezi'] = 'http://prezi.com/user/maphjiiji4ea/';
-        this._aLink['JCG'] = 'http://dev.naver.com/projects/jcg';
         this._aLink['LinkedIn'] = 'http://goo.gl/nzUAJ';
+        this._aLink['Facebook'] = 'http://www.facebook.com/iamdenny';
+        this._aLink['Twitter'] = 'https://twitter.com/webjjin';
     },
     
     showLinks : function(){
