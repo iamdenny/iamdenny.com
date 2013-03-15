@@ -25,7 +25,7 @@ com.iamdenny.links = jindo.$Class({
         var wel = jindo.$Element(el);
         this._welWrap.append(el);
         for(var key in aLink){
-            var elInner = jindo.$('<a href="'+aLink[key]+'" class="link" target="blank" style="">'+key+'</a>');
+            var elInner = jindo.$('<a href="'+aLink[key]+'" class="link" target="_blank" style="">'+key+'</a>');
             wel.append(elInner);            
         }
         $('.link').button();
