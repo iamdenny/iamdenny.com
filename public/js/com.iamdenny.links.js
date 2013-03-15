@@ -11,7 +11,6 @@ com.iamdenny.links = jindo.$Class({
     
     _initLinks : function(){
         this._aLink = new Array();
-        this._aLink['Dev'] = 'http://dev.iamdenny.com';
         this._aLink['Blog'] = 'http://blog.iamdenny.com';
         this._aLink['My Book Manager'] = 'http://mybookmanager.iamdenny.com';
         this._aLink['GitHub'] = 'http://github.com/iamdenny';
