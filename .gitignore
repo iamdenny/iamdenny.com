@@ -1,0 +1,8 @@
+node_modules/
+*.log
+.DS_Store
+.settings/
+*.sublime-project
+*.sublime-workspace
+proposals/
+screenshots/
