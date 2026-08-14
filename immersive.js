@@ -1,5 +1,9 @@
 const root = document.documentElement;
-const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+const reduceMotion = motionPreference.matches;
+const reloadForMotionPreference = () => location.reload();
+if (motionPreference.addEventListener) motionPreference.addEventListener('change', reloadForMotionPreference);
+else motionPreference.addListener(reloadForMotionPreference);
 const pointerState = {
   targetX: innerWidth / 2,
   targetY: innerHeight / 2,
@@ -186,12 +190,19 @@ document.querySelector('#generate')?.addEventListener('click', () => {
   const output = document.querySelector('#idea-output');
   const meta = document.querySelector('#idea-meta');
   const button = document.querySelector('#generate');
+  const list = ideas[selected];
+  const nextIdea = list[cursor++ % list.length];
+  const nextMeta = `CONFIDENCE ${(94 + Math.random() * 5).toFixed(1)}% · NOVELTY HIGH`;
+  if (reduceMotion) {
+    output.textContent = nextIdea;
+    meta.textContent = nextMeta;
+    return;
+  }
   button.textContent = 'THINKING ···';
   output.animate([{ opacity: 1 }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 220, fill: 'forwards' });
   setTimeout(() => {
-    const list = ideas[selected];
-    output.textContent = list[cursor++ % list.length];
-    meta.textContent = `CONFIDENCE ${(94 + Math.random() * 5).toFixed(1)}% · NOVELTY HIGH`;
+    output.textContent = nextIdea;
+    meta.textContent = nextMeta;
     output.animate([{ opacity: 0, transform: 'translateY(12px)', filter: 'blur(6px)' }, { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' }], { duration: 600, fill: 'forwards' });
     button.innerHTML = 'GENERATE <i aria-hidden="true">↗</i>';
   }, 520);
@@ -268,12 +279,48 @@ function initWorld(canvas) {
   const buffer = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buffer); gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1,3,-1,-1,3]), gl.STATIC_DRAW);
   const pos = gl.getAttribLocation(program, 'p'); gl.enableVertexAttribArray(pos); gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
   const res = gl.getUniformLocation(program, 'r'); const mouse = gl.getUniformLocation(program, 'm'); const time = gl.getUniformLocation(program, 't'); const velocity = gl.getUniformLocation(program, 'v'); const scroll = gl.getUniformLocation(program, 's');
-  let raf;
-  const resize = () => { const dpr = Math.min(devicePixelRatio, 1.2); canvas.width = Math.round(innerWidth*dpr); canvas.height = Math.round(innerHeight*dpr); gl.viewport(0,0,canvas.width,canvas.height); };
+  const frameInterval = 1000 / 30;
+  const pixelBudget = 1200000;
+  let raf = 0;
+  let lastFrame = 0;
+  let contextAvailable = true;
+  const resize = () => {
+    if (!contextAvailable) return;
+    const budgetDpr = Math.sqrt(pixelBudget / Math.max(innerWidth * innerHeight, 1));
+    const dpr = Math.min(devicePixelRatio || 1, 1.2, budgetDpr);
+    canvas.width = Math.max(1, Math.round(innerWidth * dpr));
+    canvas.height = Math.max(1, Math.round(innerHeight * dpr));
+    gl.viewport(0, 0, canvas.width, canvas.height);
+  };
   new ResizeObserver(resize).observe(document.documentElement); resize();
-  const render = now => { gl.uniform2f(res, canvas.width, canvas.height); const dpr = canvas.width/innerWidth; gl.uniform2f(mouse,pointerState.x*dpr,(innerHeight-pointerState.y)*dpr); gl.uniform1f(time,now*.001); gl.uniform1f(velocity,pointerState.speed); gl.uniform1f(scroll, scrollY/Math.max(innerHeight,1)); gl.drawArrays(gl.TRIANGLES,0,3); raf=requestAnimationFrame(render); };
-  raf=requestAnimationFrame(render);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) cancelAnimationFrame(raf); else raf=requestAnimationFrame(render); });
+  const render = now => {
+    raf = 0;
+    if (!contextAvailable || document.hidden) return;
+    if (lastFrame && now - lastFrame < frameInterval) { raf = requestAnimationFrame(render); return; }
+    lastFrame = now;
+    gl.uniform2f(res, canvas.width, canvas.height);
+    const dpr = canvas.width / innerWidth;
+    gl.uniform2f(mouse, pointerState.x * dpr, (innerHeight - pointerState.y) * dpr);
+    gl.uniform1f(time, now * .001);
+    gl.uniform1f(velocity, pointerState.speed);
+    gl.uniform1f(scroll, scrollY / Math.max(innerHeight, 1));
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    raf = requestAnimationFrame(render);
+  };
+  const schedule = () => { if (!raf && contextAvailable && !document.hidden) raf = requestAnimationFrame(render); };
+  canvas.addEventListener('webglcontextlost', (event) => {
+    event.preventDefault();
+    contextAvailable = false;
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    canvas.hidden = true;
+  });
+  canvas.addEventListener('webglcontextrestored', () => location.reload(), { once: true });
+  schedule();
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && raf) { cancelAnimationFrame(raf); raf = 0; }
+    else schedule();
+  });
 }
 
 function initHeroCore(canvas) {
@@ -440,10 +487,16 @@ function initHeroCore(canvas) {
   let width = 1;
   let height = 1;
   let ready = false;
+  let contextAvailable = true;
+  let lastFrame = 0;
+  const frameInterval = 1000 / 30;
+  const pixelBudget = 420000;
 
   const resize = () => {
+    if (!contextAvailable) return;
     const rect = canvas.getBoundingClientRect();
-    const dpr = Math.min(devicePixelRatio || 1, 1.25);
+    const budgetDpr = Math.sqrt(pixelBudget / Math.max(rect.width * rect.height, 1));
+    const dpr = Math.min(devicePixelRatio || 1, 1.25, budgetDpr);
     const nextWidth = Math.max(1, Math.round(rect.width * dpr));
     const nextHeight = Math.max(1, Math.round(rect.height * dpr));
     if (nextWidth === width && nextHeight === height) return;
@@ -454,7 +507,9 @@ function initHeroCore(canvas) {
 
   const render = (now = 0) => {
     raf = 0;
-    if (!inView && !reduceMotion) return;
+    if (!contextAvailable || (!inView && !reduceMotion)) return;
+    if (!reduceMotion && lastFrame && now - lastFrame < frameInterval) { raf = requestAnimationFrame(render); return; }
+    lastFrame = now;
     resize();
     const px = reduceMotion ? 0 : (pointerState.x / innerWidth - .5) * 2;
     const py = reduceMotion ? 0 : (.5 - pointerState.y / innerHeight) * 2;
@@ -474,6 +529,16 @@ function initHeroCore(canvas) {
 
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(canvas);
+  canvas.addEventListener('webglcontextlost', (event) => {
+    event.preventDefault();
+    contextAvailable = false;
+    if (raf) cancelAnimationFrame(raf);
+    raf = 0;
+    canvas.hidden = true;
+    canvas.closest('.hero-sculpture')?.classList.remove('is-webgl-core');
+    canvas.closest('.hero')?.classList.remove('has-webgl-core');
+  });
+  canvas.addEventListener('webglcontextrestored', () => location.reload(), { once: true });
   const intersectionObserver = new IntersectionObserver(([entry]) => {
     inView = entry.isIntersecting;
     if (inView && !reduceMotion && !raf) raf = requestAnimationFrame(render);
