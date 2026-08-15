@@ -1,3 +1,7 @@
+import { setupAnalyticsEvents } from './analytics.js';
+
+setupAnalyticsEvents();
+
 const root = document.documentElement;
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const reduceMotion = motionPreference.matches;
