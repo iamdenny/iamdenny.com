@@ -1,0 +1,11 @@
+{
+  "name": "iamdenny-com",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "node --check analytics.js && node --check immersive.js && node --check scripts/build.mjs",
+    "typecheck": "node --check analytics.js && node --check immersive.js",
+    "test": "node --test",
+    "build": "node scripts/build.mjs"
+  }
+}
