@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Denny Lim monogram</title>
+  <desc id="desc">An interlocking white L and cyan D joined by a violet spark.</desc>
+  <path d="M16 10h8v36h22v8H20a4 4 0 0 1-4-4V10Z" fill="#fff"/>
+  <path d="M26 10h12c12.2 0 21 9.2 21 21s-8.8 21-21 21h-8v-8h8c7.6 0 13-5.5 13-13s-5.4-13-13-13H26v-8Z" fill="#73f7ff"/>
+  <path d="m25 41 1.7 4.3L31 47l-4.3 1.7L25 53l-1.7-4.3L19 47l4.3-1.7L25 41Z" fill="#9b7bff" stroke="#050507" stroke-width="1.25" stroke-linejoin="round"/>
+</svg>
