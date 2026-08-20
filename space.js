@@ -9,6 +9,10 @@ import * as THREE from './assets/vendor/three/three.module.min.js';
 
 const PIXEL_BUDGET = 9000000;
 const STATIC_TIME = 14.2;
+// 60fps cap: every canvas repaint also recomposites the DOM layers blended
+// over it (noise overlay, backdrop-filters), so uncapped 120Hz doubles that
+// cost for no visible gain.
+const FRAME_INTERVAL = 1000 / 60;
 
 export function initSpace({ canvas, pointerState, reduceMotion }) {
   let renderer;
@@ -496,9 +500,12 @@ export function initSpace({ canvas, pointerState, reduceMotion }) {
     renderElement(contactGlobe, globeScene, globeCamera);
   };
 
+  let lastFrame = 0;
   const frame = (now) => {
     raf = 0;
     if (contextLost || document.hidden) return;
+    if (lastFrame && now - lastFrame < FRAME_INTERVAL - 1) { raf = requestAnimationFrame(frame); return; }
+    lastFrame = now;
     const dt = Math.min((now - lastNow) / 1000 || 0, .05);
     lastNow = now;
     time += dt;
