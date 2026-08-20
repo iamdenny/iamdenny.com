@@ -10,6 +10,12 @@
     <link rel="icon" href="./assets/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="./immersive.css" />
+    <link rel="modulepreload" href="./analytics.js" />
+    <link rel="modulepreload" href="./space.js" />
+    <link rel="modulepreload" href="./assets/vendor/three/three.module.min.js" />
+    <link rel="modulepreload" href="./assets/vendor/three/three.core.min.js" />
+    <link rel="preload" href="./assets/textures/moon-color.jpg" as="image" />
+    <link rel="preload" href="./assets/textures/moon-ldem.jpg" as="image" />
     <script type="module" src="./immersive.js"></script>
   </head>
   <body>
@@ -36,7 +42,6 @@
         </div>
         <div class="hero-sculpture pointer-depth" data-depth="-1.1">
           <div class="sculpture-glow" aria-hidden="true"></div>
-          <canvas class="hero-core" id="hero-core" width="640" height="640" aria-hidden="true"></canvas>
           <div class="sculpture-core" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
           <div class="sculpture-shell shell-a" aria-hidden="true"></div>
           <div class="sculpture-shell shell-b" aria-hidden="true"></div>
