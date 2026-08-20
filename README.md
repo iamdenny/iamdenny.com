@@ -1,6 +1,23 @@
 # iamdenny.com
 
-Framework-free static site deployed from the repository root with GitHub Pages. `index.html` loads the visual experience from `immersive.js` and `immersive.css`.
+Framework-free static site deployed from the repository root with GitHub Pages. `index.html` loads the visual experience from `immersive.js`, `immersive.css`, and the three.js space layer in `space.js`.
+
+## Visual experience
+
+`space.js` renders every 3D visual through a single WebGL context on the fixed `#world` canvas using [three.js](https://threejs.org) r185, vendored at `assets/vendor/three/` (MIT, no CDN dependency):
+
+- A parallax starfield with twinkle and occasional meteors behind every section
+- The lunar hero — a photoreal Moon built from NASA-derived color and elevation maps
+- The mind core — a wireframe icosahedron with a fresnel-glow core and particle orbits
+- The contact globe — a dotted sphere wrapped in an atmosphere rim
+
+Each object is scissor-rendered into the DOM rect of its host element, so one renderer serves the whole page. Reduced-motion visitors get a static single-frame render that repaints only on scroll/resize; when WebGL is unavailable or the context is lost, the CSS sculpture fallbacks return automatically.
+
+### Asset licensing
+
+- `assets/textures/moon-color.jpg` — Moon color map by [Solar System Scope](https://www.solarsystemscope.com/textures/) (CC BY 4.0), derived from NASA LRO data; recompressed for the web.
+- `assets/textures/moon-ldem.jpg` — Lunar elevation map from the [NASA SVS CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (public domain).
+- `assets/vendor/three/` — three.js r185 build files (MIT).
 
 ## Analytics
 

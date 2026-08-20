@@ -32,7 +32,7 @@ img { display: block; max-width: 100%; }
 
 .skip-link { position: fixed; z-index: 999; left: 1rem; top: 1rem; padding: .8rem 1rem; background: #fff; color: #000; transform: translateY(-200%); }
 .skip-link:focus { transform: translateY(0); }
-#world { position: fixed; z-index: 0; inset: 0; width: 100%; height: 100%; opacity: .72; pointer-events: none; scale: 1.08; }
+#world { position: fixed; z-index: 0; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .depth-field { position: fixed; z-index: 1; inset: 0; overflow: hidden; pointer-events: none; perspective: 900px; opacity: .42; mask-image: linear-gradient(to bottom, transparent, #000 22% 82%, transparent); }
 .depth-field::before { content: ""; position: absolute; left: -30%; top: 27%; width: 160%; height: 105%; background-image: linear-gradient(rgb(104 237 255 / 10%) 1px, transparent 1px), linear-gradient(90deg, rgb(124 60 255 / 10%) 1px, transparent 1px); background-size: 64px 64px; transform: rotateX(67deg) rotateZ(-4deg) translate3d(0, 0, -80px); transform-origin: 50% 0; animation: field-drift 14s linear infinite; }
 .depth-field::after { content: ""; position: absolute; left: -15%; top: 44%; width: 130%; height: 1px; background: linear-gradient(90deg, transparent, rgb(104 237 255 / 55%), var(--pink), transparent); box-shadow: 0 0 42px 7px rgb(104 237 255 / 15%); animation: scan-field 8s ease-in-out infinite alternate; }
@@ -61,12 +61,11 @@ main .eyebrow { position: relative; width: max-content; max-width: 100%; }
 main .eyebrow::after { content: ""; position: absolute; left: 0; bottom: -9px; width: 28px; height: 1px; background: currentColor; box-shadow: 0 0 12px currentColor; animation: signal-line 3.2s ease-in-out infinite alternate; }
 
 .hero { position: relative; min-height: 100svh; overflow: hidden; isolation: isolate; }
-.hero::after { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle at 76% 45%, transparent 0 18%, rgb(5 5 7 / 12%) 42%, rgb(5 5 7 / 82%) 75%), linear-gradient(90deg, rgb(5 5 7 / 96%) 0%, rgb(5 5 7 / 52%) 48%, rgb(5 5 7 / 12%) 78%), linear-gradient(0deg, var(--black), transparent 28%); }
+.hero::after { content: ""; position: absolute; z-index: -1; inset: 0; background: radial-gradient(circle at 76% 45%, transparent 0 18%, rgb(5 5 7 / 10%) 42%, rgb(5 5 7 / 66%) 78%), linear-gradient(90deg, rgb(5 5 7 / 78%) 0%, rgb(5 5 7 / 30%) 48%, rgb(5 5 7 / 8%) 78%), linear-gradient(0deg, var(--black), transparent 24%); }
 .hero-sculpture { position: absolute; z-index: -1; right: 3vw; top: 50%; width: min(55vw, 820px); aspect-ratio: 1; perspective: 1200px; transform: translateY(-50%); transform-style: preserve-3d; }
 .sculpture-glow { position: absolute; inset: 13%; border-radius: 50%; background: radial-gradient(ellipse at 36% 42%, rgb(104 237 255 / 42%), transparent 40%), radial-gradient(ellipse at 68% 56%, rgb(255 79 216 / 36%), transparent 45%), rgb(124 60 255 / 16%); filter: blur(86px); opacity: .48; animation: core-aura 8s ease-in-out infinite alternate; }
-.hero-core { position: absolute; z-index: 6; left: 50%; top: 50%; width: min(640px, 72vw); max-width: none; aspect-ratio: 1; height: auto; opacity: 0; pointer-events: none; contain: layout style paint; transform: translate(-50%, -50%) translateZ(110px); filter: drop-shadow(0 0 34px rgb(104 237 255 / 28%)) drop-shadow(0 0 90px rgb(124 60 255 / 22%)); transition: opacity .8s ease; }
-.hero-sculpture.is-webgl-core .hero-core { opacity: 1; }
 .hero-sculpture.is-webgl-core :is(.sculpture-core, .sculpture-shell, .sculpture-satellite, .sculpture-label) { visibility: hidden; opacity: 0; animation: none; }
+.hero-sculpture.is-webgl-core .sculpture-glow { opacity: 0; animation: none; }
 .hero.has-webgl-core .hero-orbit { opacity: 0; transition: opacity .8s ease; }
 .sculpture-core { position: absolute; z-index: 1; left: 50%; top: 50%; width: 34%; aspect-ratio: 1; border: 1px solid rgb(255 255 255 / 32%); border-radius: 43% 57% 55% 45%; background: radial-gradient(circle at 32% 23%, rgb(255 255 255 / 42%), transparent 8%), linear-gradient(145deg, rgb(104 237 255 / 14%), rgb(124 60 255 / 42%) 50%, rgb(5 5 7 / 32%)); box-shadow: inset 18px 13px 55px rgb(255 255 255 / 12%), inset -28px -35px 60px rgb(19 5 65 / 48%), 0 0 90px rgb(124 60 255 / 34%); opacity: .46; backdrop-filter: blur(18px); transform: translate(-50%, -50%) translateZ(30px) rotate(-12deg); animation: hero-morph 7s ease-in-out infinite alternate; }
 .sculpture-core::after { content: ""; position: absolute; inset: 14%; border: 1px solid rgb(255 255 255 / 28%); border-radius: inherit; background: radial-gradient(circle, transparent 20%, rgb(104 237 255 / 17%)); filter: blur(1px); }
@@ -185,6 +184,9 @@ main .eyebrow::after { content: ""; position: absolute; left: 0; bottom: -9px; w
 .contact h2 em { color: transparent; font-style: normal; -webkit-text-stroke: 1.5px var(--white); }
 .contact-globe { position: absolute; z-index: 0; right: -6vw; top: 13%; width: min(50vw, 720px); aspect-ratio: 1; border: 1px solid rgb(255 255 255 / 23%); border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgb(255 255 255 / 16%), transparent 19%), conic-gradient(from var(--spin), #0b0820, #6f39ff, #111d51, #ff4fd8, #0b0820); box-shadow: 0 0 140px rgb(97 46 227 / 32%); animation: spin 13s linear infinite; }
 .contact-globe::after { content: ""; position: absolute; inset: 8%; border: 1px solid rgb(255 255 255 / 16%); border-radius: 50%; backdrop-filter: blur(24px); }
+.mind-object.is-webgl .glass-core { visibility: hidden; opacity: 0; animation: none; }
+.contact-globe.is-webgl { border-color: rgb(255 255 255 / 10%); background: radial-gradient(circle at 38% 32%, rgb(104 237 255 / 5%), transparent 42%); box-shadow: 0 0 140px rgb(97 46 227 / 20%); animation: none; }
+.contact-globe.is-webgl::after { display: none; }
 .contact-bottom { position: relative; z-index: 2; display: flex; align-items: end; justify-content: space-between; }
 .contact-link { display: flex; width: min(100%, 620px); align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--white); font-size: clamp(17px, 2vw, 25px); font-weight: 650; letter-spacing: -.02em; text-decoration: none; }
 .contact-link span { color: var(--cyan); font-size: 38px; }.contact-bottom > div { display: flex; gap: 22px; }.contact-bottom > div a { font: 600 9px ui-monospace, monospace; letter-spacing: .14em; }
@@ -223,7 +225,7 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 25px
 
 @media (max-width: 900px) {
   .site-header { grid-template-columns: 1fr auto; height: 68px; }.signal { display: none; }.site-header nav { gap: 18px; }
-  .hero::after { background: linear-gradient(0deg, var(--black) 4%, rgb(5 5 7 / 40%) 55%, rgb(5 5 7 / 78%)); }
+  .hero::after { background: linear-gradient(0deg, var(--black) 4%, rgb(5 5 7 / 28%) 55%, rgb(5 5 7 / 58%)); }
   .hero-sculpture { right: -30vw; top: 53%; width: 112vw; opacity: .76; }
   .hero-copy { top: 42%; }.hero h1 { font-size: clamp(67px, 19vw, 120px); line-height: .8; }.hero h1 .line-2 { margin-left: 0; }.hero-intro { margin-left: 0; max-width: 390px; }
   .hero-meta { gap: 22px; }.hero-meta div:first-child { display: none; }
@@ -249,7 +251,7 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 25px
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  #world, .depth-field { display: none; }
+  .depth-field { display: none; }
   body::before,
   .signal span,
   main .eyebrow::after,
@@ -274,7 +276,6 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 25px
   .scene > *,
   .hero-sculpture { animation: none !important; }
   .site-header nav a::after,
-  .hero-core,
   .concept-cloud,
   .concept-cloud button { transition: none; }
   .scene > * { opacity: 1 !important; transform: none !important; }
