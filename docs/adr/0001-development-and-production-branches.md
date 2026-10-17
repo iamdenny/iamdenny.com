@@ -36,8 +36,9 @@ checks on `dev` and make production releases explicit.
 
 - Merges into `dev` no longer publish to the production domain.
 - Each production release has a reviewable pull request and CI result.
-- Before merging new feature work into `dev`, create `main` at the current
-  published `dev` commit and point GitHub Pages to branch `main` and folder `/`.
+- The one-time bootstrap copied the existing Pages source from `dev` to `main`,
+  then moved the default branch and Pages source to `main` before new feature
+  work was merged into `dev`.
 - Feature pull requests continue to use `dev`, as configured in `aio-config.json`.
 
 See [Branching and Releases](../branching-and-releases.md) for the operating steps.
