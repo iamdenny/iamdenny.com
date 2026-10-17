@@ -1,5 +1,4 @@
-const UMAMI_SCRIPT_URL = 'https://analytics.iamdenny.com/script.js';
-const UMAMI_WEBSITE_ID = 'ea762dc9-a791-414e-890d-eb86e138dabd';
+const GA4_MEASUREMENT_ID = 'G-7KHTY03D2F';
 const PRODUCTION_HOSTNAME = 'iamdenny.com';
 
 const ALLOWED_PROPERTIES = new Set([
@@ -38,48 +37,46 @@ export function sanitizeEventProperties(properties = {}) {
   }));
 }
 
-export function createAnalytics(windowObject = window, documentObject = document) {
+export function createGoogleAnalytics(windowObject = window, documentObject = document) {
   const enabled = isProductionHostname(windowObject.location.hostname);
-  const queue = [];
+  const scriptUrl = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
 
-  const flush = () => {
-    if (!windowObject.umami?.track) return;
-    queue.splice(0).forEach(([name, properties]) => windowObject.umami.track(name, properties));
+  const load = () => {
+    if (!enabled) return false;
+    if (documentObject.querySelector(`script[data-google-analytics-id="${GA4_MEASUREMENT_ID}"]`)) return true;
+
+    windowObject.dataLayer = windowObject.dataLayer || [];
+    if (typeof windowObject.gtag !== 'function') {
+      windowObject.gtag = function gtag() {
+        windowObject.dataLayer.push(arguments);
+      };
+    }
+
+    windowObject.gtag('js', new Date());
+    windowObject.gtag('config', GA4_MEASUREMENT_ID, {
+      page_location: `${windowObject.location.origin}${windowObject.location.pathname}`,
+      send_page_view: true
+    });
+
+    const script = documentObject.createElement('script');
+    script.async = true;
+    script.src = scriptUrl;
+    script.dataset.googleAnalyticsId = GA4_MEASUREMENT_ID;
+    documentObject.head.append(script);
+    return true;
   };
 
   const track = (name, properties) => {
     if (!enabled) return false;
     const safeProperties = sanitizeEventProperties(properties);
-    if (windowObject.umami?.track) windowObject.umami.track(name, safeProperties);
-    else queue.push([name, safeProperties]);
-    return true;
-  };
-
-  const load = () => {
-    if (!enabled) return false;
-    const existingScript = documentObject.querySelector(`script[data-website-id="${UMAMI_WEBSITE_ID}"]`);
-    if (existingScript) {
-      if (windowObject.umami?.track) flush();
-      else existingScript.addEventListener('load', flush, { once: true });
-      return true;
-    }
-    const script = documentObject.createElement('script');
-    script.async = true;
-    script.defer = true;
-    script.src = UMAMI_SCRIPT_URL;
-    script.dataset.websiteId = UMAMI_WEBSITE_ID;
-    script.dataset.domains = PRODUCTION_HOSTNAME;
-    script.dataset.excludeSearch = 'true';
-    script.dataset.excludeHash = 'true';
-    script.addEventListener('load', flush);
-    documentObject.head.append(script);
+    if (typeof windowObject.gtag === 'function') windowObject.gtag('event', name, safeProperties);
     return true;
   };
 
   return { enabled, load, track };
 }
 
-export function setupAnalyticsEvents(documentObject = document, analytics = createAnalytics()) {
+export function setupAnalyticsEvents(documentObject = document, analytics = createGoogleAnalytics()) {
   documentObject.addEventListener('click', (event) => {
     const target = event.target?.closest?.('a, button');
     if (!target) return;
@@ -118,8 +115,7 @@ export function setupAnalyticsEvents(documentObject = document, analytics = crea
   return analytics;
 }
 
-export const umamiConfig = Object.freeze({
-  scriptUrl: UMAMI_SCRIPT_URL,
-  websiteId: UMAMI_WEBSITE_ID,
+export const googleAnalyticsConfig = Object.freeze({
+  measurementId: GA4_MEASUREMENT_ID,
   productionHostname: PRODUCTION_HOSTNAME
 });
