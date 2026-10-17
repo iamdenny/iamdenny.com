@@ -1,11 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  createAnalytics,
+  createGoogleAnalytics,
   isProductionHostname,
   sanitizeEventProperties,
   setupAnalyticsEvents,
-  umamiConfig
+  googleAnalyticsConfig
 } from '../analytics.js';
 
 test('analytics is enabled only on the canonical production hostname', () => {
@@ -33,22 +33,41 @@ test('event properties are allowlisted and destinations lose query data', () => 
   assert.deepEqual(sanitizeEventProperties({ destination: 'http://[' }), {});
 });
 
-test('production loader inserts the Umami script once', () => {
+test('production loader inserts the Google tag once and sends a clean initial page view', () => {
   const scripts = [];
+  const dataLayer = [];
+  const windowObject = {
+    location: {
+      hostname: 'iamdenny.com',
+      origin: 'https://iamdenny.com',
+      pathname: '/',
+      search: '?private=1',
+      hash: '#section'
+    },
+    dataLayer
+  };
   const documentObject = {
     head: { append: (script) => scripts.push(script) },
-    querySelector: () => scripts.find((script) => script.dataset.websiteId === umamiConfig.websiteId),
+    querySelector: () => scripts.find((script) => script.dataset.googleAnalyticsId === googleAnalyticsConfig.measurementId),
     createElement: () => ({ dataset: {}, addEventListener() {} })
   };
-  const analytics = createAnalytics({ location: { hostname: 'iamdenny.com' } }, documentObject);
+  const analytics = createGoogleAnalytics(windowObject, documentObject);
   assert.equal(analytics.load(), true);
   assert.equal(analytics.load(), true);
   assert.equal(scripts.length, 1);
-  assert.equal(scripts[0].src, umamiConfig.scriptUrl);
-  assert.equal(scripts[0].dataset.websiteId, umamiConfig.websiteId);
-  assert.equal(scripts[0].dataset.domains, 'iamdenny.com');
-  assert.equal(scripts[0].dataset.excludeSearch, 'true');
-  assert.equal(scripts[0].dataset.excludeHash, 'true');
+  assert.equal(scripts[0].src, `https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsConfig.measurementId}`);
+  assert.equal(scripts[0].dataset.googleAnalyticsId, googleAnalyticsConfig.measurementId);
+  assert.equal(dataLayer[0][0], 'js');
+  assert.equal(dataLayer[1][0], 'config');
+  assert.equal(dataLayer[1][1], googleAnalyticsConfig.measurementId);
+  assert.deepEqual(dataLayer[1][2], {
+    page_location: 'https://iamdenny.com/',
+    send_page_view: true
+  });
+  analytics.track('cta_click', { page_type: 'home', query: 'private' });
+  assert.equal(dataLayer[2][0], 'event');
+  assert.equal(dataLayer[2][1], 'cta_click');
+  assert.deepEqual(dataLayer[2][2], { page_type: 'home' });
 });
 
 test('non-production loader and tracking are disabled', () => {
@@ -57,7 +76,7 @@ test('non-production loader and tracking are disabled', () => {
     querySelector: () => null,
     createElement: () => assert.fail('must not create')
   };
-  const analytics = createAnalytics({ location: { hostname: 'localhost' } }, documentObject);
+  const analytics = createGoogleAnalytics({ location: { hostname: 'localhost' } }, documentObject);
   assert.equal(analytics.load(), false);
   assert.equal(analytics.track('cta_click', { page_type: 'home' }), false);
 });

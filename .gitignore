@@ -7,3 +7,6 @@ node_modules/
 *.sublime-workspace
 proposals/
 screenshots/
+
+# graphify (knowledge graph) artifacts — fully regenerable via `graphify update .`
+graphify-out/
