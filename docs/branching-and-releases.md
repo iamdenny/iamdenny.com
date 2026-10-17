@@ -8,29 +8,31 @@ title: 'Branching and Releases'
 
 ## Target branch roles
 
-- **`dev`** — Integration branch for feature work. It is not the target
-  production branch.
+- **`dev`** — Integration branch for feature work. After the initial migration,
+  merges here do not publish to production.
 - **`main`** — Target production branch and GitHub Pages source (`/`) after the
   initial migration is complete.
 
 Keep `aio-config.json`'s `base_branch` set to `dev` so new feature pull
 requests target the integration branch. The legacy `master` branch is not a
 destination for new work. Until the initial migration below is complete, the
-repository default branch is `master` and GitHub Pages still publishes from
-`dev`.
+repository default branch is `master` and merges to `dev` still publish to
+GitHub Pages.
 
 ## Initial migration
 
-The repository does not currently have a remote `main` branch. Establish the
-target flow in this order:
+The repository does not currently have a remote `main` branch. GitHub Pages
+currently publishes `dev`, so establish `main` before merging new application
+changes into `dev`:
 
-1. Create `main` from the current `master` history so the target branch exists.
-2. Open a release pull request from `dev` to `main`; review the full diff and
-   wait for all CI checks to pass before merging.
-3. Set the repository default branch to `main`.
-4. Change GitHub Pages publishing to branch `main` and folder `/`.
-5. Confirm that Pages completed a successful build from `main` and that
-   `https://iamdenny.com/` serves the release.
+1. Create `main` at the current `dev` commit, which is the version already
+   published to the custom domain. Keep the legacy `master` branch unchanged.
+2. Set the repository default branch to `main`.
+3. Change GitHub Pages publishing to branch `main` and folder `/`.
+4. Confirm that Pages completed a successful build from `main` and that
+   `https://iamdenny.com/` continues to serve the same site.
+5. Only after this migration, merge feature pull requests into `dev`; then
+   promote releases with the `dev` to `main` pull request below.
 
 ## Feature work
 
@@ -51,8 +53,9 @@ Do not push application changes directly to `dev` or `main`.
 5. Confirm that GitHub Pages reports a successful build from `main` and that
    `https://iamdenny.com/` serves the release.
 
-GitHub Pages uses the repository root as its publishing folder. Merging into
-`dev` does not publish production; merging into `main` triggers the Pages build.
+GitHub Pages uses the repository root as its publishing folder. After the
+initial migration, merging into `dev` does not publish production; merging into
+`main` triggers the Pages build.
 
 ## Hotfixes
 

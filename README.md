@@ -61,10 +61,11 @@ including the default page referrer, are managed separately from this module.
 
 ## Branching and deployment
 
-The target flow uses `dev` for integration and `main` for production. Open
-feature pull requests against `dev`, then promote a reviewed `dev` release to
-`main` with a separate pull request. The initial migration steps establish
-`main` and move GitHub Pages to the repository root on `main`. See
+The target flow uses `dev` for integration and `main` for production. Before
+merging new work into `dev`, establish `main` from the current Pages source and
+move GitHub Pages to the repository root on `main`. Then open feature pull
+requests against `dev` and promote reviewed releases with a separate `dev` to
+`main` pull request. See
 [Branching and Releases](docs/branching-and-releases.md) and
 [ADR-0001](docs/adr/0001-development-and-production-branches.md).
 
