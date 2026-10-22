@@ -287,3 +287,11 @@ footer { display: flex; justify-content: space-between; gap: 24px; padding: 25px
   .site-header, .thought-stream, .console-shell, .concept-cloud button { border-color: CanvasText; }
   .epoch-head h2 em, .contact h2 em { color: CanvasText; -webkit-text-stroke: 0; }
 }
+
+/* A readable connection from the operator site to the working tools. */
+.tools-intro { position: relative; z-index: 2; max-width: 760px; margin: 0 0 48px; padding: 24px; background: rgba(5, 6, 13, .94); border-block: 1px solid rgba(255,255,255,.2); }
+.tools-intro h3 { margin: 0 0 14px; font-size: clamp(18px, 2vw, 24px); line-height: 1.5; letter-spacing: -.02em; }
+.tools-intro p { color: #c5c9d2; font-size: 16px; line-height: 1.85; word-break: keep-all; overflow-wrap: anywhere; }
+.tools-intro nav { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 18px; }
+.tools-intro a { display: inline-flex; align-items: center; min-height: 44px; color: var(--cyan); text-decoration: underline; text-underline-offset: 5px; }
+@media (forced-colors: active) { .tools-intro p, .tools-intro a { color: LinkText; } }
