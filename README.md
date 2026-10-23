@@ -90,3 +90,8 @@ After production deployment, use the browser Network panel to confirm
 `gtag/js?id=G-7KHTY03D2F` loads on `iamdenny.com`. Then verify a `page_view` and
 representative events such as `navigation_click`, `content_open`, and
 `cta_click` in the GA4 Realtime report or DebugView.
+
+## AdSense preparation
+
+See [shared service readiness](docs/adsense-readiness.md) for ownership,
+per-site activation prerequisites and the pending domain-review boundary.
