@@ -95,3 +95,14 @@ representative events such as `navigation_click`, `content_open`, and
 
 See [shared service readiness](docs/adsense-readiness.md) for ownership,
 per-site activation prerequisites and the pending domain-review boundary.
+
+## Project directory
+
+The lunar hero links to `#projects`, a responsive directory of ten services:
+Everyday Tools, Denny Games, Denny Print, Denny Daily, Denny Compare,
+Denny Bracket, Denny Spin, Denny Type, 말랑모아, and MODU TT (`modutt.kr`).
+BUSU is not listed. Lightweight decorative illustrations live in `assets/projects/`;
+the existing moon, MIND, EPOCH, and co-creation interactions remain in place.
+All external HTTPS links open a new tab with `noopener noreferrer`. In-page
+navigation stays in the current tab. The directory announces the new-tab behavior,
+has visible keyboard focus, and respects reduced-motion preferences.
