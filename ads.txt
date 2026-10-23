@@ -4,3 +4,5 @@ subdomain=tools.iamdenny.com
 subdomain=print.iamdenny.com
 subdomain=daily.iamdenny.com
 subdomain=compare.iamdenny.com
+subdomain=games.iamdenny.com
+subdomain=squishy.iamdenny.com
