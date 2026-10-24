@@ -1,7 +1,11 @@
-import { setupAnalyticsEvents } from './analytics.js';
+import { createGoogleAnalytics, loadCloudflareWebAnalytics, setupAnalyticsEvents } from './analytics.js';
+import { initializeAnalyticsConsent } from './analytics-consent.js';
 import { initSpace } from './space.js';
 
-setupAnalyticsEvents();
+const analytics = createGoogleAnalytics();
+setupAnalyticsEvents(document, analytics);
+initializeAnalyticsConsent(window, document, analytics);
+loadCloudflareWebAnalytics();
 
 const root = document.documentElement;
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
@@ -22,6 +26,7 @@ if (!reduceMotion) {
   let scrollTarget = 0;
   let scrollMotion = 0;
   let previousScroll = scrollY;
+  let motionFrame = 0;
 
   addEventListener('pointermove', (event) => {
     const distance = Math.hypot(event.clientX - pointerState.targetX, event.clientY - pointerState.targetY);
@@ -36,6 +41,8 @@ if (!reduceMotion) {
   }, { passive: true });
 
   const renderMotion = () => {
+    motionFrame = 0;
+    if (document.hidden) return;
     pointerState.x += (pointerState.targetX - pointerState.x) * .095;
     pointerState.y += (pointerState.targetY - pointerState.y) * .095;
     pointerState.speed += (pointerState.speedTarget - pointerState.speed) * .12;
@@ -52,9 +59,20 @@ if (!reduceMotion) {
     root.style.setProperty('--velocity', pointerState.speed.toFixed(3));
     root.style.setProperty('--scroll-v', scrollMotion.toFixed(3));
 
-    requestAnimationFrame(renderMotion);
+    motionFrame = requestAnimationFrame(renderMotion);
   };
-  requestAnimationFrame(renderMotion);
+  const startMotion = () => {
+    if (!document.hidden && !motionFrame) motionFrame = requestAnimationFrame(renderMotion);
+  };
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden && motionFrame) {
+      cancelAnimationFrame(motionFrame);
+      motionFrame = 0;
+    } else {
+      startMotion();
+    }
+  });
+  startMotion();
 }
 
 document.querySelectorAll('[data-depth]').forEach((element) => {
@@ -84,24 +102,21 @@ document.querySelectorAll('.kinetic-text').forEach((heading) => {
   });
 });
 
-const latency = document.querySelector('#latency');
-if (latency && !reduceMotion) {
-  setInterval(() => { latency.textContent = String(8 + Math.floor(Math.random() * 11)); }, 1800);
-}
-
 const universe = document.querySelector('#concept-universe');
 const conceptButtons = [...document.querySelectorAll('.concept-cloud button')];
 const conceptKicker = document.querySelector('#concept-kicker');
 const conceptFocus = document.querySelector('#concept-focus');
 const conceptDefinition = document.querySelector('#concept-definition');
+const conceptAction = document.querySelector('#concept-action');
 
 const groupNames = {
-  mind: 'COGNITIVE LAYER',
-  sense: 'PERCEPTION LAYER',
-  system: 'AGENTIC LAYER',
-  data: 'KNOWLEDGE LAYER',
-  create: 'GENERATIVE LAYER',
-  world: 'PHYSICAL LAYER'
+  work: 'EVERYDAY WORK',
+  organize: 'PLAN AND ORGANIZE',
+  play: 'PLAY AND CHOOSE',
+  create: 'MAKE AND SHARE',
+  learn: 'PRACTICE AND LEARN',
+  explore: 'DATA AND SCALE',
+  community: 'TABLE TENNIS'
 };
 
 function activateConcept(button) {
@@ -114,6 +129,8 @@ function activateConcept(button) {
   conceptKicker.textContent = groupNames[group];
   conceptFocus.textContent = button.textContent;
   conceptDefinition.textContent = button.dataset.definition;
+  conceptAction.href = button.dataset.serviceUrl;
+  conceptAction.textContent = `${button.dataset.serviceLabel} ↗`;
   if (!reduceMotion) {
     [conceptKicker, conceptFocus, conceptDefinition].forEach((item, index) => {
       item.animate(
@@ -127,9 +144,11 @@ function activateConcept(button) {
 function resetConcepts() {
   universe?.classList.remove('has-active');
   conceptButtons.forEach((item) => item.classList.remove('is-active', 'is-related'));
-  conceptKicker.textContent = 'THE AI EPOCH';
-  conceptFocus.textContent = 'INTELLIGENCE';
-  conceptDefinition.textContent = '모든 가능성을 연결하는 새로운 인터페이스.';
+  conceptKicker.textContent = 'START WITH A TASK';
+  conceptFocus.textContent = '어떤 일을 할까요?';
+  conceptDefinition.textContent = '주제를 고르면 필요한 기능과 시작 방법을 보여드립니다.';
+  conceptAction.href = 'https://tools.iamdenny.com/ko/';
+  conceptAction.textContent = 'Everyday Tools 둘러보기 ↗';
 }
 
 conceptButtons.forEach((button) => {
@@ -163,55 +182,31 @@ universe?.addEventListener('focusout', (event) => {
   if (!universe.contains(event.relatedTarget) && !universe.matches(':hover')) resetConcepts();
 });
 
-const ideas = {
-  human: [
-    '“당신의 생각을 실시간으로 조각하는 AI 공간.”',
-    '“회의가 끝나기 전에 프로토타입이 태어나는 워크플로.”',
-    '“사람의 직관을 학습하는 두 번째 인터페이스.”'
-  ],
-  data: [
-    '“숫자가 살아 있는 풍경으로 변하는 데이터 생태계.”',
-    '“흩어진 근거가 스스로 연결되는 신뢰 네트워크.”',
-    '“내일을 설명하는 실시간 데이터 조각.”'
-  ],
-  play: [
-    '“몸짓으로 연주하는 브라우저 속 AI 악기.”',
-    '“호기심을 점수로 바꾸는 끝없는 디지털 게임.”',
-    '“현실의 움직임으로 진화하는 생성형 캐릭터.”'
-  ]
-};
-let selected = 'human';
-let cursor = 0;
-const promptButtons = [...document.querySelectorAll('[data-prompt]')];
-promptButtons[0]?.setAttribute('aria-pressed', 'true');
-promptButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    selected = button.dataset.prompt;
-    promptButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
-  });
-});
+const filterButtons = [...document.querySelectorAll('[data-service-filter]')];
+const serviceCards = [...document.querySelectorAll('[data-service-category]')];
+const serviceCount = document.querySelector('#service-count');
+const serviceResults = document.querySelector('#service-results');
+const serviceFilters = document.querySelector('#service-filters');
 
-document.querySelector('#generate')?.addEventListener('click', () => {
-  const output = document.querySelector('#idea-output');
-  const meta = document.querySelector('#idea-meta');
-  const button = document.querySelector('#generate');
-  const list = ideas[selected];
-  const nextIdea = list[cursor++ % list.length];
-  const nextMeta = `CONFIDENCE ${(94 + Math.random() * 5).toFixed(1)}% · NOVELTY HIGH`;
-  if (reduceMotion) {
-    output.textContent = nextIdea;
-    meta.textContent = nextMeta;
-    return;
-  }
-  button.textContent = 'THINKING ···';
-  output.animate([{ opacity: 1 }, { opacity: 0, transform: 'translateY(8px)' }], { duration: 220, fill: 'forwards' });
-  setTimeout(() => {
-    output.textContent = nextIdea;
-    meta.textContent = nextMeta;
-    output.animate([{ opacity: 0, transform: 'translateY(12px)', filter: 'blur(6px)' }, { opacity: 1, transform: 'translateY(0)', filter: 'blur(0)' }], { duration: 600, fill: 'forwards' });
-    button.innerHTML = 'GENERATE <i aria-hidden="true">↗</i>';
-  }, 520);
-});
+if (filterButtons.length && serviceCards.length && serviceFilters) {
+  serviceFilters.hidden = false;
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const selectedCategory = button.dataset.serviceFilter;
+      filterButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+      let visibleCount = 0;
+      serviceCards.forEach((card) => {
+        const visible = selectedCategory === 'all' || card.dataset.serviceCategory === selectedCategory;
+        card.hidden = !visible;
+        if (visible) visibleCount += 1;
+      });
+      serviceCount.textContent = String(visibleCount);
+      serviceResults.textContent = selectedCategory === 'all'
+        ? `서비스 ${visibleCount}개를 소개합니다.`
+        : `${button.textContent.trim()} 서비스 ${visibleCount}개를 보여줍니다.`;
+    });
+  });
+}
 
 const canvas = document.querySelector('#world');
 if (canvas) initSpace({ canvas, pointerState, reduceMotion });

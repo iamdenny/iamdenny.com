@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050507" />
+    <meta name="description" content="Denny Spin의 이름 추첨 확률, 중복 입력, 팀 인원 배분과 공유 링크에 포함되는 명단을 이해하는 방법입니다." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="이름 추첨과 팀 나누기 이해하기 · DENNY/AI" />
+    <meta property="og:description" content="한 줄을 한 항목으로 보는 추첨, 중복 이름 처리, 17명을 4개 팀으로 나누는 예시를 설명합니다." />
+    <title>이름 추첨과 팀 나누기 이해하기 · DENNY/AI</title>
+    <link rel="canonical" href="https://iamdenny.com/guides/random-draw-and-teams.html" />
+    <link rel="stylesheet" href="../immersive.css" />
+    <script type="module" src="../guides.js"></script>
+  </head>
+  <body class="guide-page">
+    <a class="skip-link" href="#main">본문으로 이동</a>
+    <div class="depth-field" aria-hidden="true"><i></i><i></i></div><div class="noise" aria-hidden="true"></div>
+    <header class="site-header guide-header">
+      <a class="brand" href="../" aria-label="Denny Lim 홈"><img class="brand-mark" src="../assets/denny-mark.svg" alt="" width="25" height="25" /><span>DENNY<span class="brand-dim">/AI</span></span></a>
+      <div class="signal"><span aria-hidden="true"></span>FIELD GUIDE · 06</div>
+      <nav aria-label="주요 메뉴"><a href="../#projects">서비스</a><a href="../#guides">가이드</a><a href="../#about">만든 사람</a></nav>
+    </header>
+    <main class="guide-main" id="main" tabindex="-1">
+      <nav class="guide-breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span aria-hidden="true">/</span><a href="../#guides">사용 가이드</a><span aria-hidden="true">/</span><span>추첨과 팀 구성</span></nav>
+      <article class="guide-article">
+        <p class="eyebrow">RANDOM DRAWS · DENNY SPIN</p>
+        <h1>이름 추첨과<br />팀 나누기 이해하기</h1>
+        <p class="guide-lead">룰렛 결과가 공정한지 살펴보려면 이름이 아니라 입력 항목이 어떻게 계산되는지 알아야 합니다. 팀을 나눌 때도 인원 수가 균등한 것과 실력까지 균형 잡힌 것은 다릅니다.</p>
+        <p class="guide-byline">문서 업데이트: 2026년 10월 25일</p>
+        <nav class="guide-toc" aria-label="이 글 목차">
+          <h2 id="guide-section-1">이 글 목차</h2>
+          <ol>
+              <li><a href="#guide-section-1">추첨은 입력한 각 줄을 항목으로 봅니다</a></li>
+              <li><a href="#guide-section-2">여러 명을 뽑을 때와 팀 나누기는 다릅니다</a></li>
+              <li><a href="#guide-section-3">행사 전에 확인할 순서</a></li>
+              <li><a href="#guide-section-4">명단은 어디에 저장되고 공유되나요?</a></li>
+          </ol>
+        </nav>
+        <div class="guide-body">
+          <h2>추첨은 입력한 각 줄을 항목으로 봅니다</h2>
+          <p>이름 추첨기에 열 명을 한 줄씩 넣으면 기본적으로 열 개 항목 중 하나를 뽑습니다. 각 줄이 같은 확률이라면 한 항목의 확률은 1 ÷ 10, 즉 10%입니다. 이름이 같은 두 줄은 화면에 같은 사람처럼 보여도 별도 항목으로 남을 수 있으므로, 중복을 허용할지 먼저 결정하세요.</p>
+          <div class="guide-note"><strong>중복 이름 예시</strong><p>명단이 `민지`, `준호`, `민지`, `서연` 네 줄이라면 중복 제거를 끈 상태에서 `민지`는 두 항목을 차지합니다. 한 번 뽑을 때 민지가 선택될 수 있는 줄은 2개이므로 민지라는 이름이 나올 가능성은 전체 네 항목 중 두 항목에 해당합니다. 실제 추첨 전에 명단을 확인하고 필요하면 중복 이름 정리 옵션을 켜세요.</p></div>
+
+          <h2 id="guide-section-2">여러 명을 뽑을 때와 팀 나누기는 다릅니다</h2>
+          <p>여러 당첨자를 한 번에 정할 때는 같은 이름이 한 결과에 반복되지 않도록 처리됩니다. 동명이인이 서로 다른 사람이라면 이름만 넣었을 때 두 명이 한 명으로 보일 수 있습니다. 구분이 꼭 필요하면 참가자에게 허용되는 범위에서 번호나 팀 코드를 덧붙여 식별하세요. 개인 전화번호나 공개할 수 없는 정보는 넣지 마세요.</p>
+          <p>팀 나누기는 지정한 팀 수에 맞춰 인원을 가능한 한 비슷한 크기로 배분합니다. 예를 들어 참가자 17명을 4개 팀으로 나누면 한 팀은 5명, 나머지 세 팀은 4명으로 구성됩니다. 팀별 인원 차이는 1명 이내지만, 참가자의 실력이나 친분을 반영해 균형을 맞추는 기능은 아닙니다.</p>
+          <p>실력 균형이 중요한 경기라면 먼저 진행자가 참가자를 기준별로 나눈 뒤 팀마다 한 명씩 배치하거나, 추첨 결과를 참고해 사람이 직접 조정하세요. 결과가 무작위라는 이유만으로 모든 행사 목적에 공정한 편성이 되는 것은 아닙니다.</p>
+
+          <h2 id="guide-section-3">행사 전에 확인할 순서</h2>
+          <ol>
+            <li><strong>한 줄에 참가자 한 명을 입력합니다.</strong> 붙여넣은 목록에 빈 줄, 제목, 번호가 섞이지 않았는지 확인하세요.</li>
+            <li><strong>중복 이름 기준을 정합니다.</strong> 같은 이름의 중복 참가를 허용하는지, 동명이인을 구분해야 하는지 먼저 결정합니다.</li>
+            <li><strong>한 명 추첨인지 여러 명 추첨인지 고릅니다.</strong> 여러 명을 뽑을 때는 같은 이름이 결과에 중복되지 않도록 처리된다는 점을 안내하세요.</li>
+            <li><strong>팀 수를 확인합니다.</strong> 참가자 수를 팀 수로 나눈 나머지가 있으면 일부 팀의 인원이 한 명 더 많아질 수 있습니다.</li>
+            <li><strong>결과를 기록합니다.</strong> CSV로 저장하거나 인쇄할 수 있습니다. 공개 행사를 위한 공식 추첨이라면 규칙과 결과 확인 절차를 참가자에게 미리 알리세요.</li>
+          </ol>
+
+          <h2 id="guide-section-4">명단은 어디에 저장되고 공유되나요?</h2>
+          <p>브라우저에 저장한 입력은 현재 기기에 남습니다. 기기를 바꾸거나 브라우저 데이터를 지우면 저장한 명단이 이어지지 않을 수 있습니다. 공유 링크는 실시간 동기화 문서가 아니라 공유 시점의 명단을 담는 스냅샷이므로, 링크를 받은 사람은 그 목록을 볼 수 있습니다. 명단이 바뀌면 새 링크를 전달해야 합니다.</p>
+          <p>참가자 명단을 공개해도 되는지 확인한 뒤 공유하세요. 어린이 이름, 연락처, 학교·직장 정보처럼 민감한 내용을 링크에 포함하지 않는 것이 좋습니다. 링크로 공유한 데이터는 수신자의 브라우저나 메시지 기록에 복사될 수 있습니다.</p>
+          <p>이 도구는 임의 추첨과 인원 배분을 돕습니다. 암호학적 추첨 증명, 공식 감독, 참가 자격 확인, 실력 평가를 제공하지 않으므로 상금이나 중요한 권리가 걸린 추첨에는 별도 규정과 독립된 확인 절차를 사용하세요.</p>
+
+          <div class="guide-cta"><div><strong>명단을 확인하고 시작하세요</strong><p>한 번의 추첨, 여러 명 선정, 팀 나누기 중 필요한 방식을 고를 수 있습니다.</p></div><a href="https://spin.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">Denny Spin 열기 ↗</a></div>
+          <nav class="guide-related" aria-labelledby="related-guides-title">
+            <h2 id="related-guides-title">함께 읽을 가이드</h2>
+            <ul>
+              <li><a href="./tournament-format.html">토너먼트와 풀리그 경기 수 계산</a></li>
+              <li><a href="./browser-game-controls.html">브라우저 게임 조작 점검</a></li>
+            </ul>
+          </nav>
+          <p><a href="../#guides">모든 사용 가이드</a> · <a href="../#projects">서비스 전체 보기</a></p>
+        </div>
+      </article>
+    </main>
+    <footer class="guide-footer"><span>© 2026 DENNY LIM</span><span>문서 업데이트 · 2026년 10월 25일</span><a href="../privacy.html">개인정보 처리 안내</a><button class="analytics-settings-button" type="button" data-analytics-settings>분석 설정</button><a href="../#top">홈으로 ↑</a></footer>
+  </body>
+</html>

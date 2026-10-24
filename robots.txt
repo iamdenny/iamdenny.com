@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://iamdenny.com/sitemap.xml

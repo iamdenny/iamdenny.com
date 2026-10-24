@@ -1,12 +1,14 @@
-# Shared AdSense readiness — 2026-10-23
+# Shared AdSense readiness — 2026-10-25
 
 ## Scope and evidence
 
 The selected publisher for the Denny service network is
 `ca-pub-3539037484563455`. The registered parent domain is `iamdenny.com`.
-Its latest authenticated status on 2026-10-23 was **Getting ready / under review**;
-ads.txt was **Authorized**. Review was requested on October 8. This record does
-not claim site approval, Google ad serving, or revenue.
+The owner-supplied AdSense screenshot updated on 2026-10-23 at 9:59 PM KST
+shows **Needs attention / low-value content** for `iamdenny.com`; ads.txt is
+**Authorized**. A separate `modutt.kr` entry is **Getting ready** and ads.txt
+is **Not found** in that screenshot. This record does not claim site approval,
+Google ad serving, or revenue.
 
 | Service | Canonical host | Public ownership preparation | Serving preparation |
 | --- | --- | --- | --- |
@@ -23,11 +25,64 @@ Games has ko/en. Print and Compare use `/` for English and ko/ja/es prefixes;
 `/en/` is not a supported route and must not be submitted as one.
 Squishy's ads.txt was missing before this change.
 
+On 2026-10-25, read-only checks of the current apex returned HTTP 200 and the
+older `Denny Lim — Human × AI` page. Its homepage loaded Cloudflare Web
+Analytics; the initial HTML contained no GA4 or AdSense script. The currently
+published `/privacy.html` returned 404. This checkout's new policy and content
+are local only, so that 404 is expected until this branch is reviewed and
+released. Do not describe the draft policy as already live.
+
+The same read-only check found HTTP 200 for the Korean home page of each linked
+service: Tools, Games, Print, Daily, Compare, Bracket, Spin, Type, Squishy
+Garden, and MODU TT. Tested privacy pages on those services also returned HTTP
+200. Tools' lecture-speed and completion-plan calculators and Games'
+compatibility and input-diagnostics pages returned HTTP 200. The Games
+input-diagnostics page is intentionally `noindex`; the other checked service
+pages exposed canonical URLs, and the tested pages were indexable unless
+noted. Squishy Garden uses default indexing rather than an explicit robots meta
+tag.
+
+The initial HTML for Print, Daily, and Compare referenced their Adsterra
+loader. Games exposed an ad-preference control in its page UI and disclosed its
+ad partners on its privacy page. Bracket, Spin, and Type linked to their own
+privacy pages, each of which returned HTTP 200. A static HTML scan cannot prove
+whether an ad was served, whether a consent choice was honored in every browser,
+or whether a provider recorded revenue; those remain separate checks. The
+separate `modutt.kr` service is not part of the `iamdenny.com` AdSense review.
+
 The apex change aligns the verification meta with the selected publisher,
 retains both existing authorized sellers, retains tools/print/daily/compare
 declarations, and adds games/squishy declarations. It also gives visitors
 crawlable descriptions and links to all five services. These are real services,
 not duplicate application domains or new AdSense account applications.
+
+## Content improvements in local review
+
+The local branch adds original, service-specific explanations to the apex
+directory and nine practical guides for tournament planning, printable answer
+keys, UTC-based flag practice, proportion comparisons, study-time planning,
+random draws and teams, typing metrics, browser-game input, and paper-squishy
+printing. A small match-count calculator uses the same formulas explained in
+the guide. A privacy page describes the apex site's analytics and the current
+absence of an AdSense ad placement in this local source. The existing space/3D
+animation remains; unsupported decorative latency and confidence numbers are
+removed. No AdSense ad loader or placement is added to the apex.
+
+The branch also moves nine original, service-specific guides immediately after
+the service directory, adds direct links to three practical guides, and keeps
+the animated homepage while removing scroll effects that dimmed body text. Each
+guide now has an in-page contents list and links to related guides. Internal
+documents stay in the current tab; service links open a new tab with
+`noopener noreferrer`.
+
+GA4 now requires an explicit visitor choice before loading. Rejecting or
+withdrawing disables later GA4 events and clears first-party `_ga` cookies
+where the browser allows it. The homepage's Cloudflare Web Analytics beacon is
+still a separate provider and is described separately in the privacy policy.
+The apex does not add an AdSense slot or loader.
+
+These changes are local source only until separately reviewed and released.
+They may address the content concern but do not guarantee Google approval.
 
 ## Activation procedure
 
@@ -50,19 +105,29 @@ not duplicate application domains or new AdSense account applications.
    and real ad response without clicking the site's own ads. Report source,
    deployment, actual fill and earnings separately.
 
-The official review guidance says a few days, sometimes 2–4 weeks. November 5
-is the four-week follow-up point for the October 8 request, not a promised
-approval date. If still pending then, inspect the account's available support
-options; do not remove and recreate the application merely to restart it.
-No support message was sent as part of this preparation.
+Use the current status shown in the publisher account as the source of truth.
+If a review is pending, do not remove and recreate the application merely to
+restart it. If a review is complete, preserve the exact current reason before
+choosing a correction. No support message or AdSense application change was
+made as part of this local implementation.
 
 ## Validation and rollback
 
-Apex: lint, typecheck, five tests and static build passed. Chromium checked the
-new service section at 1280×800 and 360×800 with no section horizontal overflow.
-Squishy: `npm run verify` passed ten tests and checked 867 indexable pages,
-matching publisher metadata, generated seller text and absence of Google ad
-scripts. Browser screenshots are local evidence, not physical-device QA.
+Apex local verification: `npm run lint`, `npm run typecheck`, `npm test`, and
+`npm run build` passed on the current branch. The 8 analytics tests cover
+pre-consent blocking, explicit grant, duplicate-load prevention, withdrawal,
+cookie clearing, property sanitization, storage failure, and nonproduction
+hosts. Static build checks cover required pages, all nine guide contents and
+related links, local link targets, safe external links, sitemap entries, and
+robots directives. Chromium local preview showed no horizontal overflow at
+the 487px mobile breakpoint and the 1455px default desktop viewport. The
+browser viewport adapter reported 487px after a request for 390px, so no exact
+390px viewport claim is made. Browser checks are not physical-device QA.
+
+Squishy Garden's separate prior `npm run verify` passed ten tests and checked
+867 indexable pages, matching publisher metadata, generated seller text and
+absence of Google ad scripts. That is prior repository evidence, not a fresh
+validation of this branch.
 
 Release and public readback must be recorded after the PRs deploy. Prior apex
 production baseline: `ffd539c`; prior Squishy baseline: `c0ef1d7`. Revert only the
@@ -74,3 +139,6 @@ Other agents' primary-checkout changes are excluded from these PRs.
 - [Google: connect your site](https://support.google.com/adsense/answer/7584263?hl=en)
 - [Google: site management](https://support.google.com/adsense/answer/12170421?hl=en)
 - [Google: ads.txt](https://support.google.com/adsense/answer/12171612?hl=en)
+- [Google: pages ready for AdSense](https://support.google.com/adsense/answer/7299563?hl=en)
+- [Google: required privacy content](https://support.google.com/adsense/answer/1348695?hl=en)
+- [Google: publisher privacy policies](https://support.google.com/adsense/answer/10502938?hl=en)
