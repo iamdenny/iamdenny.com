@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050507" />
+    <meta name="description" content="강의 재생 시간을 배속으로 환산하고 복습 여유 시간과 가능한 공부 날짜를 반영해 현실적인 완강 계획을 세웁니다." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="강의 배속과 완강 계획 세우기 · DENNY/AI" />
+    <meta property="og:description" content="재생 시간, 배속, 하루 공부 시간과 제외 날짜를 넣어 남은 강의를 끝낼 수 있는지 계산합니다." />
+    <title>강의 배속과 완강 계획 세우기 · DENNY/AI</title>
+    <link rel="canonical" href="https://iamdenny.com/guides/study-completion-plan.html" />
+    <link rel="stylesheet" href="../immersive.css" />
+    <script type="module" src="../guides.js"></script>
+  </head>
+  <body class="guide-page">
+    <a class="skip-link" href="#main">본문으로 이동</a>
+    <div class="depth-field" aria-hidden="true"><i></i><i></i></div><div class="noise" aria-hidden="true"></div>
+    <header class="site-header guide-header">
+      <a class="brand" href="../" aria-label="Denny Lim 홈"><img class="brand-mark" src="../assets/denny-mark.svg" alt="" width="25" height="25" /><span>DENNY<span class="brand-dim">/AI</span></span></a>
+      <div class="signal"><span aria-hidden="true"></span>FIELD GUIDE · 05</div>
+      <nav aria-label="주요 메뉴"><a href="../#projects">서비스</a><a href="../#guides">가이드</a><a href="../#about">만든 사람</a></nav>
+    </header>
+    <main class="guide-main" id="main" tabindex="-1">
+      <nav class="guide-breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span aria-hidden="true">/</span><a href="../#guides">사용 가이드</a><span aria-hidden="true">/</span><span>강의 시간과 완강 계획</span></nav>
+      <article class="guide-article">
+        <p class="eyebrow">STUDY PLANNING · EVERYDAY TOOLS</p>
+        <h1>강의 배속과<br />완강 계획 세우기</h1>
+        <p class="guide-lead">강의 목록을 끝까지 보려면 영상 길이뿐 아니라 배속, 메모와 복습에 쓸 시간, 실제 공부 가능한 날짜를 함께 계산해야 합니다. 계산 결과는 일정을 점검하는 기준이며, 내용을 이해하거나 기억하는 데 필요한 시간을 보장하지는 않습니다.</p>
+        <p class="guide-byline">문서 업데이트: 2026년 10월 25일</p>
+        <nav class="guide-toc" aria-label="이 글 목차">
+          <h2 id="guide-section-1">이 글 목차</h2>
+          <ol>
+              <li><a href="#guide-section-1">강의 시간은 어떻게 읽나요?</a></li>
+              <li><a href="#guide-section-2">배속을 적용한 시청 시간 계산</a></li>
+              <li><a href="#guide-section-3">마감일까지 감당할 수 있는지 확인하기</a></li>
+              <li><a href="#guide-section-4">계획을 입력할 때 현실성을 높이는 순서</a></li>
+              <li><a href="#guide-section-5">계산 결과의 범위</a></li>
+          </ol>
+        </nav>
+        <div class="guide-body">
+          <h2>강의 시간은 어떻게 읽나요?</h2>
+          <p>인강 배속 계산기에는 강의 하나를 한 줄에 입력합니다. 숫자만 쓰면 분 단위이고, <code>분:초</code> 또는 <code>시:분:초</code> 형식도 사용할 수 있습니다. 예를 들어 <code>90</code>과 <code>90:00</code>은 90분, <code>1:30</code>은 1분 30초, <code>1:30:00</code>은 1시간 30분입니다. 입력 칸은 최대 300개 강의를 계산합니다.</p>
+          <p>재생 시간이 모두 0이거나 형식이 맞지 않는 줄은 계산에서 제외될 수 있으니 합계가 예상과 다르면 각 줄을 다시 살펴보세요. 쉬는 시간이나 강의 전후 안내가 영상 길이에 포함되어 있다면 그것도 재생 시간으로 계산됩니다.</p>
+
+          <h2 id="guide-section-2">배속을 적용한 시청 시간 계산</h2>
+          <p>기본 식은 <strong>원래 재생 시간 합계 ÷ 재생 배속</strong>입니다. 50분, 70분, 35분 30초 강의의 원래 길이는 합쳐서 2시간 35분 30초입니다. 이를 1.5배속으로 재생하면 실제 시청 시간은 약 1시간 43분 40초로 줄어듭니다. 계산기는 초 단위 결과를 반올림하므로 화면의 분·초 값과 약간 차이가 날 수 있습니다.</p>
+          <p>빠른 배속은 재생 시간을 줄이는 계산일 뿐, 모든 사람에게 같은 이해도나 학습 효과를 준다는 뜻은 아닙니다. 수식 전개나 낯선 개념에서 자주 멈춘다면 그 강의는 더 낮은 배속으로 보고, 계획에 복습 시간을 따로 더하는 편이 현실적입니다.</p>
+
+          <h2 id="guide-section-3">마감일까지 감당할 수 있는지 확인하기</h2>
+          <p>완강 계획은 남은 영상의 재생 시간을 배속으로 나누고, 메모·문제 풀이·복습에 사용할 추가 시간을 더해 계산합니다. 그다음 선택한 공부 날짜 수와 하루 사용 가능 시간으로 총 학습 가능 시간을 구합니다.</p>
+          <p>실제 계산기에서는 예시를 불러오거나 강의 길이를 한 줄씩 넣고, 배속·시작일·마감일·하루 가능 시간과 복습 추가 비율을 설정합니다. 예를 들어 길이 칸에 <code>60</code>을 세 번 입력하고 배속 <code>1.5×</code>, 공부 날짜 3일, 하루 30분, 추가 시간 25%를 선택합니다. 날짜 범위에 쉬는 날이 있으면 학습 요일이나 제외 날짜에서 빼고 계산하세요.</p>
+          <table class="guide-table">
+            <caption>예시 입력: 60분 강의 3개 · 1.5배속 · 3일 · 하루 30분 · 총 수용량 90분</caption>
+            <thead><tr><th scope="col">복습 여유</th><th scope="col">필요 시간</th><th scope="col">하루 목표</th><th scope="col">90분과 비교</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">추가 없음</th><td>120분</td><td>40분</td><td>30분 부족</td></tr>
+              <tr><th scope="row">25% 추가</th><td>150분</td><td>50분</td><td>60분 부족</td></tr>
+            </tbody>
+          </table>
+          <div class="guide-note"><strong>시간 부족을 영상 분량으로 바꾸어 읽기</strong><p>복습 추가 시간이 없을 때 90분 안에 볼 수 있는 원본 영상은 90 × 1.5 = 135분입니다. 전체 180분에서 약 45분이 남습니다. 25% 추가 시간은 메모·복습에 쓸 여유를 포함하므로 60분 부족을 원본 영상 분량으로 그대로 환산할 수는 없습니다.</p></div>
+
+          <h2 id="guide-section-4">계획을 입력할 때 현실성을 높이는 순서</h2>
+          <ol>
+            <li><strong>남은 영상만 넣습니다.</strong> 이미 들은 강의를 다시 포함하면 필요한 시간이 실제보다 커집니다. 이어보기 지점부터 다시 계산할 수 있도록 남은 재생 시간만 입력하세요.</li>
+            <li><strong>실제로 공부할 수 있는 날을 선택합니다.</strong> 휴일, 출장, 시험이나 업무가 있는 날은 제외일로 표시합니다. 매일 공부할 계획이 아니라면 주간 공부일도 줄여 잡으세요.</li>
+            <li><strong>하루 분량을 짧게 확인합니다.</strong> 계산된 분량이 생활 시간에 맞지 않으면 마감일을 늘리거나 하루 목표를 조정합니다. 계획을 맞추려고 배속을 올리기 전에 이해가 필요한 구간을 고려하세요.</li>
+            <li><strong>추가 시간은 본인 기준으로 정합니다.</strong> 강의가 익숙하거나 복습이 필요 없다면 여유율을 낮출 수 있습니다. 노트 정리나 문제 풀이가 많다면 늘리세요. 이 값은 개인의 일정 가정이지 서비스가 학습 난도를 측정한 결과가 아닙니다.</li>
+            <li><strong>하루를 비워 두는 여유를 둡니다.</strong> 예상보다 어려운 강의나 갑작스러운 일정에 대비해 마감 직전까지 모든 시간을 채우지 않는 것이 좋습니다.</li>
+          </ol>
+
+          <h2 id="guide-section-5">계산 결과의 범위</h2>
+          <p>계산기는 강의 길이, 선택한 배속, 학습 가능 날짜와 입력한 추가 시간만 사용해 일정을 추정합니다. 영상이 실제로 재생됐는지, 사용자가 내용을 이해했는지, 강의 중 멈춤이나 되감기가 얼마나 있었는지는 알지 못합니다. 영상 강의 플랫폼의 진도율과 이 계획의 시간이 다르면 강의 플랫폼에 표시된 실제 남은 시간을 기준으로 다시 계산하세요.</p>
+          <p>이 안내 페이지에는 강의 입력칸이 없습니다. 실제 입력은 Everyday Tools의 별도 완강 계산기에서 이뤄지며, 계산기는 결과를 만들 때 입력 내용을 해당 브라우저에 저장한다고 안내합니다. 강의 제목은 선택 항목이므로 공유할 필요가 없는 이름이나 개인정보는 입력하지 마세요. 별도 서비스의 데이터 처리 내용은 <a href="https://tools.iamdenny.com/ko/privacy/" target="_blank" rel="noopener noreferrer">Everyday Tools 개인정보 안내</a>를 확인하세요.</p>
+
+          <div class="guide-cta"><div><strong>남은 시간을 직접 계산해 보세요</strong><p>강의 길이와 배속을 넣어 시청 시간을 확인하고, 가능한 날짜에 맞춰 완강 계획을 세울 수 있습니다.</p></div><a href="https://tools.iamdenny.com/ko/lecture-speed/" target="_blank" rel="noopener noreferrer">인강 배속 계산기 열기 ↗</a><a href="https://tools.iamdenny.com/ko/completion-plan/" target="_blank" rel="noopener noreferrer">완강 계획 계산기 열기 ↗</a></div>
+          <nav class="guide-related" aria-labelledby="related-guides-title">
+            <h2 id="related-guides-title">함께 읽을 가이드</h2>
+            <ul>
+              <li><a href="./typing-speed-and-accuracy.html">타자 속도와 정확도 읽기</a></li>
+              <li><a href="./daily-flags.html">오늘의 국기 퀴즈와 지역별 연습</a></li>
+            </ul>
+          </nav>
+          <p><a href="../#guides">모든 사용 가이드</a> · <a href="../#projects">서비스 전체 보기</a></p>
+        </div>
+      </article>
+    </main>
+    <footer class="guide-footer"><span>© 2026 DENNY LIM</span><span>문서 업데이트 · 2026년 10월 25일</span><a href="../privacy.html">개인정보 처리 안내</a><button class="analytics-settings-button" type="button" data-analytics-settings>분석 설정</button><a href="../#top">홈으로 ↑</a></footer>
+  </body>
+</html>

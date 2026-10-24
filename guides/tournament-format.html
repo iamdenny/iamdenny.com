@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#050507" />
+    <meta name="description" content="참가 인원과 행사 시간에 맞춰 토너먼트와 풀리그를 고르는 방법, 경기 수 계산식과 8명 사례를 알아봅니다." />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="토너먼트와 풀리그, 어떤 방식이 맞을까요? · DENNY/AI" />
+    <meta property="og:description" content="참가 인원에 따른 경기 수를 비교하고 행사 목적에 맞는 대회 방식을 선택하세요." />
+    <title>토너먼트와 풀리그, 어떤 방식이 맞을까요? · DENNY/AI</title>
+    <link rel="canonical" href="https://iamdenny.com/guides/tournament-format.html" />
+    <link rel="stylesheet" href="../immersive.css" />
+    <script type="module" src="../guides.js"></script>
+  </head>
+  <body class="guide-page">
+    <a class="skip-link" href="#main">본문으로 이동</a>
+    <div class="depth-field" aria-hidden="true"><i></i><i></i></div>
+    <div class="noise" aria-hidden="true"></div>
+    <header class="site-header guide-header">
+      <a class="brand" href="../" aria-label="Denny Lim 홈"><img class="brand-mark" src="../assets/denny-mark.svg" alt="" width="25" height="25" /><span>DENNY<span class="brand-dim">/AI</span></span></a>
+      <div class="signal"><span aria-hidden="true"></span>FIELD GUIDE · 01</div>
+      <nav aria-label="주요 메뉴"><a href="../#projects">서비스</a><a href="../#guides">가이드</a><a href="../#about">만든 사람</a></nav>
+    </header>
+    <main class="guide-main" id="main" tabindex="-1">
+      <nav class="guide-breadcrumb" aria-label="현재 위치"><a href="../">홈</a><span aria-hidden="true">/</span><a href="../#guides">사용 가이드</a><span aria-hidden="true">/</span><span>대회 방식 고르기</span></nav>
+      <article class="guide-article">
+        <p class="eyebrow">TOURNAMENT PLANNING · DENNY BRACKET</p>
+        <h1>토너먼트와 풀리그,<br />어떤 방식이 맞을까요?</h1>
+        <p class="guide-lead">참가 인원만큼 중요한 건 대회에서 원하는 경험입니다. 우승자를 빠르게 정하고 싶다면 토너먼트, 참가자끼리 충분히 겨루게 하고 싶다면 풀리그가 잘 맞을 수 있습니다. 먼저 경기 수를 비교하면 행사 시간을 계획하기 쉬워집니다.</p>
+        <p class="guide-byline">문서 업데이트: 2026년 10월 25일</p>
+
+        <nav class="guide-toc" aria-label="이 글 목차">
+          <h2 id="guide-section-1">이 글 목차</h2>
+          <ol>
+              <li><a href="#guide-section-1">두 방식은 무엇이 다른가요?</a></li>
+              <li><a href="#guide-section-2">참가자 수로 경기 수 계산하기</a></li>
+              <li><a href="#guide-section-3">행사 계획을 세울 때 놓치기 쉬운 점</a></li>
+          </ol>
+        </nav>
+        <div class="guide-body">
+          <h2>두 방식은 무엇이 다른가요?</h2>
+          <p><strong>토너먼트</strong>는 경기에서 지면 다음 라운드에 올라가지 않는 방식입니다. 한 명의 우승자를 정하는 데 필요한 경기 수가 참가 인원에 따라 선형으로 늘어납니다. 참가자 수가 2의 거듭제곱이 아니면 일부 참가자는 첫 라운드를 건너뛰는 부전승을 받을 수 있지만, 전체 경기 수는 여전히 참가자 수에서 1을 뺀 값입니다.</p>
+          <p><strong>풀리그</strong>는 참가자들이 서로 한 번씩 만나는 방식입니다. 모두가 여러 경기를 할 수 있는 대신, 참가자 쌍의 수만큼 경기가 필요해 인원이 늘어날수록 경기 수가 빠르게 증가합니다. 순위를 정할 때는 승점과 동률 처리 규칙을 미리 정해 두세요.</p>
+
+          <div class="guide-note"><strong>간단한 기준</strong><p>시간과 코트가 제한되어 있고 우승자를 정하는 일이 우선이면 토너먼트를 살펴보세요. 모든 참가자의 경기 경험이 중요하고 충분한 시간이 있으면 풀리그를 고려하세요. 동호회나 수업에서는 두 방식을 조합할 수도 있습니다.</p></div>
+
+          <h2 id="guide-section-2">참가자 수로 경기 수 계산하기</h2>
+          <p>토너먼트는 참가자 수를 <em>n</em>이라 할 때 <em>n − 1</em>경기입니다. 풀리그는 모든 참가자 쌍이 한 번씩 만나므로 <em>n × (n − 1) ÷ 2</em>경기입니다.</p>
+          <div class="match-calculator">
+            <label for="participants">참가자 수<input id="participants" name="participants" type="number" min="2" max="256" step="1" value="8" inputmode="numeric" /></label>
+            <div class="match-results" id="match-results" aria-live="polite">
+              <div><span>토너먼트 · n − 1</span><strong><output id="knockout-matches">7</output>경기</strong></div>
+              <div><span>풀리그 · n(n − 1) ÷ 2</span><strong><output id="league-matches">28</output>경기</strong></div>
+              <p class="match-help" id="match-help">8명일 때 풀리그는 토너먼트보다 21경기 더 필요합니다. 실제 진행 시간은 경기 길이와 사용 가능한 코트 수에 따라 달라집니다.</p>
+            </div>
+          </div>
+
+          <table class="guide-table">
+            <caption>참가자 수별 경기 수 예시</caption>
+            <thead><tr><th scope="col">참가자</th><th scope="col">토너먼트</th><th scope="col">풀리그</th></tr></thead>
+            <tbody><tr><th scope="row">4명</th><td>3경기</td><td>6경기</td></tr><tr><th scope="row">8명</th><td>7경기</td><td>28경기</td></tr><tr><th scope="row">16명</th><td>15경기</td><td>120경기</td></tr></tbody>
+          </table>
+
+          <div class="guide-note"><strong>8명 예시를 처음부터 따라가기</strong>
+            <ol>
+              <li>Denny Bracket에서 참가자 입력칸에 서로 다른 이름을 한 줄에 하나씩 적습니다. 예시 링크에는 식별 정보가 없는 “참가자 1”부터 “참가자 8”까지를 사용했습니다.</li>
+              <li>대회 방식에서 단판 토너먼트를 고르고 <strong>대회 만들기</strong>를 누릅니다. 예시 화면은 8명, 3라운드, 완료 경기 0 / 7로 표시됩니다. 첫 라운드 4경기, 준결승 2경기, 결승 1경기입니다.</li>
+              <li>점수를 기록한 뒤 <strong>현재 상태 링크 복사</strong>를 눌러 공유합니다. 링크는 복사한 순간의 명단·방식·점수를 담고 이후 수정 사항은 자동 반영하지 않으므로 바뀐 결과를 보낼 때 새 링크를 만드세요.</li>
+            </ol>
+            <p>이름은 예시용입니다. 실제 참가자 이름이 들어간 공유 링크를 전달하면 받는 사람도 그 이름과 경기 상태를 볼 수 있으니 공개해도 되는지 확인하세요.</p>
+            <a href="https://bracket.iamdenny.com/ko/#s=eyJ2IjoxLCJraW5kIjoiYnJhY2tldCIsIm5hbWVzIjpbIuywuOqwgOyekCAxIiwi7LC46rCA7J6QIDIiLCLssLjqsIDsnpAgMyIsIuywuOqwgOyekCA0Iiwi7LC46rCA7J6QIDUiLCLssLjqsIDsnpAgNiIsIuywuOqwgOyekCA3Iiwi7LC46rCA7J6QIDgiXSwibW9kZSI6Imtub2Nrb3V0In0" target="_blank" rel="noopener noreferrer">예시 대진표를 새 탭에서 열기 ↗</a>
+          </div>
+
+          <h2 id="guide-section-3">행사 계획을 세울 때 놓치기 쉬운 점</h2>
+          <ol>
+            <li><strong>경기 수와 진행 시간을 구분하세요.</strong> 경기가 많아도 여러 코트에서 동시에 진행할 수 있습니다. 반대로 한 코트만 쓸 수 있다면 대기 시간이 길어질 수 있습니다.</li>
+            <li><strong>점수와 동률 규칙을 시작 전에 정하세요.</strong> 리그에서 승점이 같을 때 득실차, 다득점 등 어떤 기준을 먼저 볼지 참가자에게 알려 주세요.</li>
+            <li><strong>결과를 어디까지 공유할지 확인하세요.</strong> 대진표 공유 링크는 공유 시점의 상태를 보여줍니다. 나중에 결과가 바뀌면 새 링크를 전달해야 합니다.</li>
+          </ol>
+          <p>경기 수는 대회 방식 선택을 돕는 기준입니다. 참가자의 실력 차이, 휴식 시간, 경기장 운영 방식까지 고려해 최종 일정을 정하세요.</p>
+
+          <div class="guide-cta"><div><strong>대회 방식이 정해졌나요?</strong><p>참가자를 입력하고 토너먼트 대진표나 풀리그 일정을 만들어 보세요.</p></div><a href="https://bracket.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">Denny Bracket 열기 ↗</a></div>
+          <nav class="guide-related" aria-labelledby="related-guides-title">
+            <h2 id="related-guides-title">함께 읽을 가이드</h2>
+            <ul>
+              <li><a href="./random-draw-and-teams.html">이름 추첨과 팀 나누기</a></li>
+              <li><a href="./browser-game-controls.html">브라우저 게임 조작 점검</a></li>
+            </ul>
+          </nav>
+          <p><a href="../#guides">모든 사용 가이드</a> · <a href="../#projects">서비스 전체 보기</a></p>
+        </div>
+      </article>
+    </main>
+    <footer class="guide-footer"><span>© 2026 DENNY LIM</span><span>문서 업데이트 · 2026년 10월 25일</span><a href="../privacy.html">개인정보 처리 안내</a><button class="analytics-settings-button" type="button" data-analytics-settings>분석 설정</button><a href="../#top">홈으로 ↑</a></footer>
+  </body>
+</html>

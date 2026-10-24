@@ -1,5 +1,7 @@
 const GA4_MEASUREMENT_ID = 'G-7KHTY03D2F';
 const PRODUCTION_HOSTNAME = 'iamdenny.com';
+const CLOUDFLARE_BEACON_TOKEN = '504e76923e694819b00a19e24cfbb922';
+const CLOUDFLARE_BEACON_URL = 'https://static.cloudflareinsights.com/beacon.min.js';
 
 const ALLOWED_PROPERTIES = new Set([
   'page_type',
@@ -14,6 +16,23 @@ const ALLOWED_PROPERTIES = new Set([
 
 export function isProductionHostname(hostname) {
   return hostname === PRODUCTION_HOSTNAME;
+}
+
+export function loadCloudflareWebAnalytics(windowObject = window, documentObject = document) {
+  if (!isProductionHostname(windowObject.location.hostname)) return false;
+
+  const existingBeacon = documentObject.querySelector(
+    `script[data-cloudflare-analytics-token="${CLOUDFLARE_BEACON_TOKEN}"]`
+  );
+  if (existingBeacon) return true;
+
+  const script = documentObject.createElement('script');
+  script.defer = true;
+  script.src = CLOUDFLARE_BEACON_URL;
+  script.dataset.cloudflareAnalyticsToken = CLOUDFLARE_BEACON_TOKEN;
+  script.dataset.cfBeacon = JSON.stringify({ token: CLOUDFLARE_BEACON_TOKEN });
+  documentObject.head.append(script);
+  return true;
 }
 
 export function sanitizeEventProperties(properties = {}) {
@@ -40,10 +59,19 @@ export function sanitizeEventProperties(properties = {}) {
 export function createGoogleAnalytics(windowObject = window, documentObject = document) {
   const enabled = isProductionHostname(windowObject.location.hostname);
   const scriptUrl = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
+  let allowed = false;
+
+  const pageLocation = () => `${windowObject.location.origin}${windowObject.location.pathname}`;
 
   const load = () => {
     if (!enabled) return false;
-    if (documentObject.querySelector(`script[data-google-analytics-id="${GA4_MEASUREMENT_ID}"]`)) return true;
+    if (allowed) return true;
+    const existingScript = documentObject.querySelector(
+      `script[data-google-analytics-id="${GA4_MEASUREMENT_ID}"]`
+    );
+
+    allowed = true;
+    windowObject[`ga-disable-${GA4_MEASUREMENT_ID}`] = false;
 
     windowObject.dataLayer = windowObject.dataLayer || [];
     if (typeof windowObject.gtag !== 'function') {
@@ -52,9 +80,17 @@ export function createGoogleAnalytics(windowObject = window, documentObject = do
       };
     }
 
+    if (existingScript) {
+      windowObject.gtag('config', GA4_MEASUREMENT_ID, {
+        page_location: pageLocation(),
+        send_page_view: true
+      });
+      return true;
+    }
+
     windowObject.gtag('js', new Date());
     windowObject.gtag('config', GA4_MEASUREMENT_ID, {
-      page_location: `${windowObject.location.origin}${windowObject.location.pathname}`,
+      page_location: pageLocation(),
       send_page_view: true
     });
 
@@ -67,13 +103,30 @@ export function createGoogleAnalytics(windowObject = window, documentObject = do
   };
 
   const track = (name, properties) => {
-    if (!enabled) return false;
+    if (!enabled || !allowed) return false;
     const safeProperties = sanitizeEventProperties(properties);
     if (typeof windowObject.gtag === 'function') windowObject.gtag('event', name, safeProperties);
     return true;
   };
 
-  return { enabled, load, track };
+  const revoke = () => {
+    allowed = false;
+    windowObject[`ga-disable-${GA4_MEASUREMENT_ID}`] = true;
+    if (!enabled || typeof documentObject.cookie !== 'string') return true;
+
+    const cookieNames = documentObject.cookie.split(';')
+      .map((cookie) => cookie.split('=', 1)[0].trim())
+      .filter((name) => /^_ga(?:_|$)/.test(name));
+    for (const name of cookieNames) {
+      for (const domain of ['', windowObject.location.hostname, `.${windowObject.location.hostname}`]) {
+        const domainAttribute = domain ? `; domain=${domain}` : '';
+        documentObject.cookie = `${name}=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domainAttribute}; SameSite=Lax`;
+      }
+    }
+    return true;
+  };
+
+  return { enabled, load, revoke, track };
 }
 
 export function setupAnalyticsEvents(documentObject = document, analytics = createGoogleAnalytics()) {
@@ -81,14 +134,18 @@ export function setupAnalyticsEvents(documentObject = document, analytics = crea
     const target = event.target?.closest?.('a, button');
     if (!target) return;
 
-    if (target.matches('.concept-cloud button')) {
+    if (target.matches('.concept-cloud button[data-service-id]')) {
       analytics.track('content_open', {
-        page_type: 'home', item_type: 'concept', item_id: target.textContent.trim().toLowerCase().replace(/\s+/g, '_')
+        page_type: 'home', item_type: 'service_task', item_id: target.dataset.serviceId
       });
-    } else if (target.id === 'generate') {
-      analytics.track('cta_click', { page_type: 'home', item_id: 'generate_idea', position: 'co_creation' });
-    } else if (target.matches('[data-prompt]')) {
-      analytics.track('setting_change', { page_type: 'home', item_type: 'idea_topic', item_id: target.dataset.prompt });
+    } else if (target.matches('[data-service-filter]')) {
+      analytics.track('setting_change', {
+        page_type: 'home', item_type: 'service_category', item_id: target.dataset.serviceFilter
+      });
+    } else if (target.matches('a[data-guide-link]')) {
+      analytics.track('content_open', {
+        page_type: 'home', item_type: 'guide', item_id: target.dataset.guideId
+      });
     } else if (target.matches('.contact-link')) {
       analytics.track('contact_click', { page_type: 'home', item_type: 'email', destination: target.href, position: 'contact' });
     } else if (target.matches('.contact-bottom div a')) {
@@ -111,7 +168,6 @@ export function setupAnalyticsEvents(documentObject = document, analytics = crea
     }
   });
 
-  analytics.load();
   return analytics;
 }
 

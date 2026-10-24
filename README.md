@@ -4,6 +4,13 @@ Framework-free static site deployed from the repository root with GitHub Pages.
 `index.html` loads the visual experience from `immersive.js`, `immersive.css`,
 and the three.js space layer in `space.js`.
 
+The homepage is the service directory for Denny's independently operated web
+services. It explains what each service does, provides an interactive task
+finder, and links to nine practical guides under `guides/`. The guide pages use
+the same visual language with a quieter reading layout; the tournament guide
+includes a client-side match-count calculator. `privacy.html` describes the
+analytics and outbound-service behavior of this apex site.
+
 ## Visual experience
 
 `space.js` renders every 3D visual through a single WebGL context on the fixed
@@ -31,12 +38,16 @@ context is lost, the CSS sculpture fallbacks return automatically.
   [NASA SVS CGI Moon Kit](https://svs.gsfc.nasa.gov/4720) (public domain).
 - `assets/vendor/three/` — three.js r185 build files (MIT).
 
-## Analytics
+## Analytics and visitor choice
 
-The site retains Cloudflare Web Analytics and uses Google Analytics 4 (GA4). The
-dedicated `analytics.js` module loads GA4 only when the exact hostname is
-`iamdenny.com`. Localhost, preview deployments, tests, and `www.iamdenny.com`
-therefore do not enter GA4.
+The homepage retains Cloudflare Web Analytics. Its beacon loads only on the
+canonical `iamdenny.com` hostname and is described separately in `privacy.html`.
+Google Analytics 4 (GA4) loads only after the visitor explicitly allows it in
+`analytics-consent.js`. The choice is stored as `granted` or `denied` in this
+browser. Unknown or blocked storage fails closed; rejecting or withdrawing
+disables further GA events and removes first-party `_ga` cookies this site can
+clear. Localhost, preview deployments, tests, `www.iamdenny.com`, and the
+privacy page do not load the Google tag.
 
 The GA4 Measurement ID is public configuration, not a secret. This no-bundler
 site has no build-time public environment-variable mechanism, so it lives in
@@ -44,12 +55,12 @@ site has no build-time public environment-variable mechanism, so it lives in
 
 - Google Analytics 4 Measurement ID: `G-7KHTY03D2F`
 
-The Google tag sends one initial `page_view`; hash links navigate within one
-document, so no synthetic SPA pageviews are sent. Tracked interactions include
-primary navigation, external/contact links, concept opens, idea-topic changes,
-and the Generate CTA. Download tracking is ready for any link carrying a
-`download` attribute. Search, theme, and language events are not applicable
-because the current UI has none.
+After consent, each homepage or guide visit sends one initial `page_view`; hash
+links navigate within one document, so no synthetic SPA pageviews are sent.
+Homepage interaction events include primary navigation, external/contact
+links, concept opens, and idea-topic changes. Download tracking is ready for
+any link carrying a `download` attribute. Search, theme, and language events
+are not applicable because the current UI has none.
 
 Custom event metadata passed through `analytics.track()` is allowlisted.
 The initial `page_view` uses a `page_location` containing only the origin and
@@ -86,10 +97,10 @@ field or release-tag convention, so analytics changes do not invent a
 standalone version number.
 Deployment history is represented by Git commits and GitHub Pages builds.
 
-After production deployment, use the browser Network panel to confirm
-`gtag/js?id=G-7KHTY03D2F` loads on `iamdenny.com`. Then verify a `page_view` and
-representative events such as `navigation_click`, `content_open`, and
-`cta_click` in the GA4 Realtime report or DebugView.
+On a production review, confirm the Google tag makes no request before consent
+or after rejection; allowing should load `gtag/js?id=G-7KHTY03D2F`, and
+withdrawing should disable subsequent events. Then verify a consented
+`page_view` and representative homepage events in GA4 Realtime or DebugView.
 
 ## AdSense preparation
 
