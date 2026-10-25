@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 180" width="360" height="180" role="img" aria-labelledby="title">
+<title id="title">일본 국기를 보고 나라 이름을 고르는 연습 예시</title>
+<defs><radialGradient id="glow"><stop stop-color="#8cddb7" stop-opacity=".15"/><stop offset="1" stop-color="#8cddb7" stop-opacity="0"/></radialGradient></defs>
+<rect width="360" height="180" fill="#0a101c"/><ellipse cx="280" cy="80" rx="180" ry="150" fill="url(#glow)"/>
+<g font-family="system-ui, sans-serif"><rect x="26" y="26" width="165" height="113" rx="5" fill="#f2f1e9" stroke="#f2f1e9"/><circle cx="108.5" cy="82.5" r="29" fill="#ca3c59"/><text x="27" y="161" font-size="10" fill="#8cddb7" >FLAG PRACTICE</text><text x="215" y="45" font-size="10" fill="#dbe5f5" >WHICH COUNTRY?</text><rect x="211" y="63" width="124" height="37" rx="8" fill="#132e29" stroke="#8cddb7"/><text x="225" y="87" font-size="13" fill="#8cddb7" >JAPAN</text><rect x="211" y="111" width="124" height="37" rx="8" fill="#121d2e" stroke="#344257"/><text x="225" y="135" font-size="10" fill="#dbe5f5" >TRY ANOTHER</text></g></svg>

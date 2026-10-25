@@ -45,6 +45,10 @@ for (const path of guidePaths) {
 }
 for (const path of ['index.html', ...requiredFiles.filter((file) => file.startsWith('guides/') && file.endsWith('.html')), 'privacy.html']) {
   const page = await readFile(path, 'utf8');
+  for (const [, source] of page.matchAll(/<img\b[^>]*\ssrc="([^"]+)"/g)) {
+    if (/^(?:https?:|data:)/i.test(source)) continue;
+    await access(resolve(dirname(path), source));
+  }
   if ((page.match(/<h1\b/g) || []).length !== 1) throw new Error(`${path} must have exactly one h1`);
   const idValues = [...page.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   const ids = new Set(idValues);

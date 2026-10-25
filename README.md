@@ -14,6 +14,15 @@ not persisted or sent to a server. Each guide identifies its document operator
 and provides an email correction link. `privacy.html` describes the
 analytics and outbound-service behavior of this apex site.
 
+## Service previews
+
+The nine directory cards pair an external service link (new tab) with its
+related guide (same tab). `assets/previews/` contains original SVG illustrations
+of example tasks and outputs, not product screenshots or live user activity.
+They are labeled as examples, provide descriptive alternative text, and load
+lazily with explicit dimensions. The preview hover effect respects reduced
+motion. Build validation checks that local image references exist.
+
 ## Visual experience
 
 `space.js` renders every 3D visual through a single WebGL context on the fixed
