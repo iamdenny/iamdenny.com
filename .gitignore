@@ -10,3 +10,6 @@ screenshots/
 
 # graphify (knowledge graph) artifacts — fully regenerable via `graphify update .`
 graphify-out/
+
+# Regenerable local knowledge graph
+graphify-out/

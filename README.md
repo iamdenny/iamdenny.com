@@ -121,11 +121,22 @@ per-site activation prerequisites and the pending domain-review boundary.
 
 ## Project directory
 
-The lunar hero links to `#projects`, a responsive directory of ten services:
-Everyday Tools, Denny Games, Denny Print, Denny Daily, Denny Compare,
-Denny Bracket, Denny Spin, Denny Type, 말랑모아, and MODU TT (`modutt.kr`).
-BUSU is not listed. Lightweight decorative illustrations live in `assets/projects/`;
-the existing moon, MIND, EPOCH, and co-creation interactions remain in place.
-All external HTTPS links open a new tab with `noopener noreferrer`. In-page
-navigation stays in the current tab. The directory announces the new-tab behavior,
-has visible keyboard focus, and respects reduced-motion preferences.
+The lunar hero links to `#projects`, a directory of nine services: Everyday
+Tools, Denny Games, Denny Print, Denny Daily, Denny Compare, Denny Bracket,
+Denny Spin, Denny Type, and 말랑모아. MODU TT (`modutt.kr`) has a separate
+featured section after the guides, bringing the total linked services to ten.
+BUSU is not listed. Current card previews live in `assets/previews/`;
+`assets/projects/` contains earlier decorative assets and the MODU TT asset.
+External HTTPS links open a new tab with `noopener noreferrer`; internal
+pages and section links remain in the current tab.
+
+## Documentation
+
+- [Design system](DESIGN.md): existing visual identity and interaction constraints.
+- [Code map](docs/codemap.md): runtime modules, content and validation ownership.
+- [Content maintenance](docs/content-maintenance.md): guide updates and examples.
+- [AdSense readiness](docs/adsense-readiness.md): dated evidence and activation boundaries.
+- [Branching and releases](docs/branching-and-releases.md): delivery and cleanup.
+- [ADR-0001](docs/adr/0001-development-and-production-branches.md): branch roles.
+- [ADR-0002](docs/adr/0002-service-directory-and-guides.md): service directory and original guides.
+- [ADR-0003](docs/adr/0003-explicit-analytics-consent.md): explicit GA4 consent.

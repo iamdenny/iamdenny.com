@@ -1,6 +1,11 @@
-# Shared AdSense readiness — 2026-10-25
+---
+title: "AdSense readiness and release evidence"
+summary: "Distinguishes historical audits, deployed improvements and provider review status."
+read_when:
+  - You are preparing an AdSense review or enabling advertising.
+---
 
-## Scope and evidence
+## Historical audit and scope
 
 The selected publisher for the Denny service network is
 `ca-pub-3539037484563455`. The registered parent domain is `iamdenny.com`.
@@ -25,12 +30,11 @@ Games has ko/en. Print and Compare use `/` for English and ko/ja/es prefixes;
 `/en/` is not a supported route and must not be submitted as one.
 Squishy's ads.txt was missing before this change.
 
-On 2026-10-25, read-only checks of the current apex returned HTTP 200 and the
+Before the first content release on 2026-10-25 (KST), read-only checks of the apex returned HTTP 200 and the
 older `Denny Lim — Human × AI` page. Its homepage loaded Cloudflare Web
-Analytics; the initial HTML contained no GA4 or AdSense script. The currently
-published `/privacy.html` returned 404. This checkout's new policy and content
-are local only, so that 404 is expected until this branch is reviewed and
-released. Do not describe the draft policy as already live.
+Analytics; the initial HTML contained no GA4 or AdSense script. At that baseline, `/privacy.html` returned 404. This was a pre-release finding,
+not the current production state; the policy and guides were subsequently
+deployed in release PR #19.
 
 The same read-only check found HTTP 200 for the Korean home page of each linked
 service: Tools, Games, Print, Daily, Compare, Bracket, Spin, Type, Squishy
@@ -56,19 +60,19 @@ declarations, and adds games/squishy declarations. It also gives visitors
 crawlable descriptions and links to all five services. These are real services,
 not duplicate application domains or new AdSense account applications.
 
-## Content improvements in local review
+## Deployed content improvements
 
-The local branch adds original, service-specific explanations to the apex
+The release adds original, service-specific explanations to the apex
 directory and nine practical guides for tournament planning, printable answer
 keys, UTC-based flag practice, proportion comparisons, study-time planning,
 random draws and teams, typing metrics, browser-game input, and paper-squishy
 printing. A small match-count calculator uses the same formulas explained in
 the guide. A privacy page describes the apex site's analytics and the current
-absence of an AdSense ad placement in this local source. The existing space/3D
+absence of an AdSense ad placement in the apex source. The existing space/3D
 animation remains; unsupported decorative latency and confidence numbers are
 removed. No AdSense ad loader or placement is added to the apex.
 
-The branch also moves nine original, service-specific guides immediately after
+The release also moves nine original, service-specific guides immediately after
 the service directory, adds direct links to three practical guides, and keeps
 the animated homepage while removing scroll effects that dimmed body text. Each
 guide now has an in-page contents list and links to related guides. Internal
@@ -81,8 +85,8 @@ where the browser allows it. The homepage's Cloudflare Web Analytics beacon is
 still a separate provider and is described separately in the privacy policy.
 The apex does not add an AdSense slot or loader.
 
-These changes are local source only until separately reviewed and released.
-They may address the content concern but do not guarantee Google approval.
+These changes were deployed through release PR #19. They address the content
+concern but do not guarantee Google approval.
 
 ## Activation procedure
 
@@ -108,12 +112,14 @@ They may address the content concern but do not guarantee Google approval.
 Use the current status shown in the publisher account as the source of truth.
 If a review is pending, do not remove and recreate the application merely to
 restart it. If a review is complete, preserve the exact current reason before
-choosing a correction. No support message or AdSense application change was
-made as part of this local implementation.
+choosing a correction. A review request was submitted during the earlier delivery session; the portal
+then showed review requested / preparing. This is a dated observation, not a
+fresh account readback. No support explanation was sent. Check the account
+before taking any further review action, and do not submit a duplicate request.
 
 ## Validation and rollback
 
-Apex local verification: `npm run lint`, `npm run typecheck`, `npm test`, and
+Apex implementation verification: `npm run lint`, `npm run typecheck`, `npm test`, and
 `npm run build` passed on the current branch. The 8 analytics tests cover
 pre-consent blocking, explicit grant, duplicate-load prevention, withdrawal,
 cookie clearing, property sanitization, storage failure, and nonproduction
@@ -129,7 +135,7 @@ Squishy Garden's separate prior `npm run verify` passed ten tests and checked
 absence of Google ad scripts. That is prior repository evidence, not a fresh
 validation of this branch.
 
-Release and public readback must be recorded after the PRs deploy. Prior apex
+The release evidence below supersedes the local-only status above. Prior apex
 production baseline: `ffd539c`; prior Squishy baseline: `c0ef1d7`. Revert only the
 scoped readiness commits through the normal PR flow if rollback is needed.
 Other agents' primary-checkout changes are excluded from these PRs.
@@ -160,5 +166,28 @@ all 11 tests passed. Local browser checks verified calculation, Enter submission
 native invalid-input blocking, and a narrow single-column layout without
 horizontal overflow (reported CSS viewport 487px).
 
-This follow-up improves the public site while the existing review request is
-pending; it does not create a duplicate AdSense application.
+This follow-up was delivered after the existing review request was submitted;
+it did not create a duplicate AdSense application. Current review status must
+be read from the publisher account.
+
+## Release evidence (2026-10-25 KST)
+
+| Scope | Feature PR | Production PR | Main merge |
+| --- | --- | --- | --- |
+| Original guides, privacy, consent and content | [#18](https://github.com/iamdenny/iamdenny.com/pull/18) | [#19](https://github.com/iamdenny/iamdenny.com/pull/19) | `ef32e45` |
+| Guide navigation and study calculator | [#20](https://github.com/iamdenny/iamdenny.com/pull/20) | [#21](https://github.com/iamdenny/iamdenny.com/pull/21) | `c5c38a1` |
+| Nine example previews and direct guide links | [#22](https://github.com/iamdenny/iamdenny.com/pull/22) | [#23](https://github.com/iamdenny/iamdenny.com/pull/23) | `41106e0` |
+
+All three releases completed CI and Pages deployment in the delivery session.
+For PR #23, Pages run [40158678205](https://github.com/iamdenny/iamdenny.com/actions/runs/40158678205)
+succeeded. Public HTML, CSS and all nine SVG previews returned HTTP 200 and
+matched the reviewed source bytes. Browser checks verified the nine preview
+cards, same-tab guide navigation, new-tab service navigation and category
+filtering. The narrow preview reported 487 CSS pixels, not the requested 390;
+no exact 390px or physical-device validation is claimed.
+
+The previews are original functional illustrations labeled as examples, not
+screenshots or proof of real usage. Existing animation and the separate MODU TT
+feature remain. These releases do not establish approval, ad fill or revenue.
+Subdomain preparation in the historical table must be rechecked in each owning
+repository before advertising activation; the apex release does not deploy them.
