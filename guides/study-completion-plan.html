@@ -27,9 +27,9 @@
         <p class="eyebrow">STUDY PLANNING · EVERYDAY TOOLS</p>
         <h1>강의 배속과<br />완강 계획 세우기</h1>
         <p class="guide-lead">강의 목록을 끝까지 보려면 영상 길이뿐 아니라 배속, 메모와 복습에 쓸 시간, 실제 공부 가능한 날짜를 함께 계산해야 합니다. 계산 결과는 일정을 점검하는 기준이며, 내용을 이해하거나 기억하는 데 필요한 시간을 보장하지는 않습니다.</p>
-        <p class="guide-byline">문서 업데이트: 2026년 10월 25일</p>
+        <p class="guide-byline">운영·문서 관리: <a href="../#about">Denny Lim</a> · 문서 업데이트: 2026년 10월 25일</p>
         <nav class="guide-toc" aria-label="이 글 목차">
-          <h2 id="guide-section-1">이 글 목차</h2>
+          <h2>이 글 목차</h2>
           <ol>
               <li><a href="#guide-section-1">강의 시간은 어떻게 읽나요?</a></li>
               <li><a href="#guide-section-2">배속을 적용한 시청 시간 계산</a></li>
@@ -39,7 +39,7 @@
           </ol>
         </nav>
         <div class="guide-body">
-          <h2>강의 시간은 어떻게 읽나요?</h2>
+          <h2 id="guide-section-1">강의 시간은 어떻게 읽나요?</h2>
           <p>인강 배속 계산기에는 강의 하나를 한 줄에 입력합니다. 숫자만 쓰면 분 단위이고, <code>분:초</code> 또는 <code>시:분:초</code> 형식도 사용할 수 있습니다. 예를 들어 <code>90</code>과 <code>90:00</code>은 90분, <code>1:30</code>은 1분 30초, <code>1:30:00</code>은 1시간 30분입니다. 입력 칸은 최대 300개 강의를 계산합니다.</p>
           <p>재생 시간이 모두 0이거나 형식이 맞지 않는 줄은 계산에서 제외될 수 있으니 합계가 예상과 다르면 각 줄을 다시 살펴보세요. 쉬는 시간이나 강의 전후 안내가 영상 길이에 포함되어 있다면 그것도 재생 시간으로 계산됩니다.</p>
 
@@ -50,6 +50,20 @@
           <h2 id="guide-section-3">마감일까지 감당할 수 있는지 확인하기</h2>
           <p>완강 계획은 남은 영상의 재생 시간을 배속으로 나누고, 메모·문제 풀이·복습에 사용할 추가 시간을 더해 계산합니다. 그다음 선택한 공부 날짜 수와 하루 사용 가능 시간으로 총 학습 가능 시간을 구합니다.</p>
           <p>실제 계산기에서는 예시를 불러오거나 강의 길이를 한 줄씩 넣고, 배속·시작일·마감일·하루 가능 시간과 복습 추가 비율을 설정합니다. 예를 들어 길이 칸에 <code>60</code>을 세 번 입력하고 배속 <code>1.5×</code>, 공부 날짜 3일, 하루 30분, 추가 시간 25%를 선택합니다. 날짜 범위에 쉬는 날이 있으면 학습 요일이나 제외 날짜에서 빼고 계산하세요.</p>
+          <form class="study-calculator" id="study-calculator" aria-labelledby="study-calculator-title" aria-describedby="study-calculator-help" hidden>
+            <h3 id="study-calculator-title">내 조건으로 시간 비교하기</h3>
+            <p id="study-calculator-help">남은 원본 강의의 총 분량을 넣으세요. 공부 날짜 수는 실제로 공부할 날만 셉니다. 복습 비율은 배속을 적용한 시청 시간에 더합니다.</p>
+            <div class="study-inputs">
+              <label for="study-minutes">원본 강의 총 길이 (분)<input id="study-minutes" name="minutes" type="number" min="1" max="100000" step="any" value="180" required /></label>
+              <label for="study-speed">재생 배속 (배)<input id="study-speed" name="speed" type="number" min="0.25" max="4" step="any" value="1.5" required /></label>
+              <label for="study-days">공부할 날짜 수 (일)<input id="study-days" name="days" type="number" min="1" max="366" step="1" value="3" required /></label>
+              <label for="study-daily">하루 가능 시간 (분)<input id="study-daily" name="dailyMinutes" type="number" min="1" max="1440" step="any" value="30" required /></label>
+              <label for="study-review">복습 추가 비율 (%)<input id="study-review" name="reviewPercent" type="number" min="0" max="200" step="any" value="25" required /></label>
+            </div>
+            <button type="submit">시간 계획 계산</button>
+            <p class="study-result" id="study-result" role="status" aria-atomic="true">예시: 순수 시청 120분, 복습 포함 필요 150분입니다. 사용 가능 시간은 90분으로 60분이 부족합니다. 하루 평균 50분이 필요합니다.</p>
+            <p class="study-calculator-note">표시 값은 소수점 한 자리까지 반올림합니다. 이 계산은 날짜별 일정을 배분하지 않으며, 입력값은 저장하거나 전송하지 않습니다. 상세 일정은 아래 완강 계획 계산기에서 설정할 수 있습니다.</p>
+          </form>
           <table class="guide-table">
             <caption>예시 입력: 60분 강의 3개 · 1.5배속 · 3일 · 하루 30분 · 총 수용량 90분</caption>
             <thead><tr><th scope="col">복습 여유</th><th scope="col">필요 시간</th><th scope="col">하루 목표</th><th scope="col">90분과 비교</th></tr></thead>
@@ -71,9 +85,13 @@
 
           <h2 id="guide-section-5">계산 결과의 범위</h2>
           <p>계산기는 강의 길이, 선택한 배속, 학습 가능 날짜와 입력한 추가 시간만 사용해 일정을 추정합니다. 영상이 실제로 재생됐는지, 사용자가 내용을 이해했는지, 강의 중 멈춤이나 되감기가 얼마나 있었는지는 알지 못합니다. 영상 강의 플랫폼의 진도율과 이 계획의 시간이 다르면 강의 플랫폼에 표시된 실제 남은 시간을 기준으로 다시 계산하세요.</p>
-          <p>이 안내 페이지에는 강의 입력칸이 없습니다. 실제 입력은 Everyday Tools의 별도 완강 계산기에서 이뤄지며, 계산기는 결과를 만들 때 입력 내용을 해당 브라우저에 저장한다고 안내합니다. 강의 제목은 선택 항목이므로 공유할 필요가 없는 이름이나 개인정보는 입력하지 마세요. 별도 서비스의 데이터 처리 내용은 <a href="https://tools.iamdenny.com/ko/privacy/" target="_blank" rel="noopener noreferrer">Everyday Tools 개인정보 안내</a>를 확인하세요.</p>
+          <p>위의 간단 계산은 강의 총 길이와 공부 가능 시간을 비교합니다. 개별 강의 목록과 날짜별 설정은 Everyday Tools의 별도 완강 계산기에서 입력합니다. 별도 계산기는 결과를 만들 때 입력 내용을 해당 브라우저에 저장한다고 안내합니다. 강의 제목은 선택 항목이므로 공유할 필요가 없는 이름이나 개인정보는 입력하지 마세요. 별도 서비스의 데이터 처리 내용은 <a href="https://tools.iamdenny.com/ko/privacy/" target="_blank" rel="noopener noreferrer">Everyday Tools 개인정보 안내</a>를 확인하세요.</p>
 
           <div class="guide-cta"><div><strong>남은 시간을 직접 계산해 보세요</strong><p>강의 길이와 배속을 넣어 시청 시간을 확인하고, 가능한 날짜에 맞춰 완강 계획을 세울 수 있습니다.</p></div><a href="https://tools.iamdenny.com/ko/lecture-speed/" target="_blank" rel="noopener noreferrer">인강 배속 계산기 열기 ↗</a><a href="https://tools.iamdenny.com/ko/completion-plan/" target="_blank" rel="noopener noreferrer">완강 계획 계산기 열기 ↗</a></div>
+          <aside class="guide-feedback" aria-label="문서 오류 제보">
+            <p><strong>설명과 실제 화면이 다른가요?</strong> 기능이 바뀌었거나 계산·출력 결과가 다르면 문서 주소와 확인한 내용을 알려 주세요. 확인된 오류는 안내에 반영합니다.</p>
+            <a href="mailto:hi.iamdenny@gmail.com?subject=%EA%B0%80%EC%9D%B4%EB%93%9C%20%EC%98%A4%EB%A5%98%20%EC%A0%9C%EB%B3%B4%3A%20study-completion-plan&amp;body=%EB%AC%B8%EC%84%9C%3A%20https%3A//iamdenny.com/guides/study-completion-plan.html%0A%0A%EB%AC%B8%EC%A0%9C%EA%B0%80%20%EC%9E%88%EB%8A%94%20%EC%84%A4%EB%AA%85%EC%9D%B4%EB%82%98%20%EC%9E%AC%ED%98%84%20%EB%B0%A9%EB%B2%95%EC%9D%84%20%EC%A0%81%EC%96%B4%20%EC%A3%BC%EC%84%B8%EC%9A%94.%20%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8%EB%82%98%20%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EB%8A%94%20%EB%B3%B4%EB%82%B4%EC%A7%80%20%EB%A7%88%EC%84%B8%EC%9A%94.%0A">이 가이드 오류 제보하기</a>
+          </aside>
           <nav class="guide-related" aria-labelledby="related-guides-title">
             <h2 id="related-guides-title">함께 읽을 가이드</h2>
             <ul>

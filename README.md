@@ -8,7 +8,10 @@ The homepage is the service directory for Denny's independently operated web
 services. It explains what each service does, provides an interactive task
 finder, and links to nine practical guides under `guides/`. The guide pages use
 the same visual language with a quieter reading layout; the tournament guide
-includes a client-side match-count calculator. `privacy.html` describes the
+includes a client-side match-count calculator, and the study guide includes a
+lecture-time comparison calculator. Calculator values stay in memory and are
+not persisted or sent to a server. Each guide identifies its document operator
+and provides an email correction link. `privacy.html` describes the
 analytics and outbound-service behavior of this apex site.
 
 ## Visual experience

@@ -716,3 +716,31 @@ footer a:hover { color: var(--cyan); }
 @media (max-width: 560px) {
   .projects-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Article tools use the same quiet surfaces as the existing guides. */
+.guide-byline a, .guide-feedback a { color: #e7f7ff; text-underline-offset: 4px; }
+.guide-body h2[id] { scroll-margin-top: 110px; }
+.guide-feedback { margin-top: 36px; padding: 20px 23px; border-left: 2px solid var(--cyan); background: #0b101c; }
+.guide-feedback p { margin-bottom: 10px; font-size: 13px; }
+.guide-feedback a { display: inline-flex; align-items: center; min-height: 44px; font-size: 13px; }
+.study-calculator { margin: 28px 0; padding: 24px; border: 1px solid rgb(104 237 255 / 32%); border-radius: 14px; background: #0b101c; }
+.study-calculator[hidden] { display: none; }
+.study-calculator h3 { margin-top: 0; }
+.study-calculator > p { font-size: 13px; }
+.study-inputs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-block: 22px; }
+.study-inputs label { display: grid; gap: 8px; color: #f3f5fb; font-size: 13px; }
+.study-inputs input { box-sizing: border-box; width: 100%; min-width: 0; min-height: 48px; padding: 10px 12px; border: 1px solid #7a859c; border-radius: 8px; background: #080b14; color: #f3f5fb; font: inherit; }
+.study-calculator button { min-height: 46px; padding: 10px 20px; border: 1px solid var(--cyan); border-radius: 999px; background: #101b28; color: #f3f5fb; font: inherit; cursor: pointer; }
+.study-calculator button:hover { background: #1a3042; }
+.study-calculator .study-result { margin-top: 22px; padding: 16px; border-radius: 8px; background: #04070d; color: #e7f7ff; }
+.study-calculator .study-calculator-note { margin-bottom: 0; color: #c6cada; font-size: 12px; }
+.study-calculator :is(input, button):focus-visible, .guide-feedback a:focus-visible, .guide-byline a:focus-visible { outline: 3px solid #8cddf0; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .study-inputs { grid-template-columns: 1fr; }
+  .study-calculator { padding: 19px; }
+}
+@media (forced-colors: active) {
+  .study-calculator, .study-inputs input, .study-calculator button, .guide-feedback { border-color: CanvasText; }
+}
+
+.match-calculator input { box-sizing: border-box; }
