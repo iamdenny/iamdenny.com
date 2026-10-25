@@ -36,7 +36,7 @@ new application changes were merged into `dev`:
 1. Start a feature branch from the latest `origin/dev`.
 2. Make and review the change on that branch.
 3. Open a pull request from the feature branch to `dev`.
-4. Wait for the `lint`, `typecheck`, `test`, and `build` checks to pass.
+4. Wait for the `verify` job running lint, typecheck, test and build to pass.
 5. Merge the pull request into `dev`.
 
 Do not push application changes directly to `dev` or `main`.
@@ -45,7 +45,7 @@ Do not push application changes directly to `dev` or `main`.
 
 1. Confirm that `dev` contains the changes intended for production.
 2. Open a release pull request from `dev` to `main`.
-3. Review the complete release diff and wait for all four CI checks to pass.
+3. Review the complete release diff and wait for the CI verification job to pass.
 4. Merge the release pull request into `main`.
 5. Confirm that GitHub Pages reports a successful build from `main` and that
    `https://iamdenny.com/` serves the release.
@@ -72,3 +72,21 @@ npm run build
 ```
 
 The workflow checks each branch. GitHub Pages publishes production from `main`.
+
+## Account routing and completed-work cleanup
+
+Use the `ghr` wrapper for every GitHub CLI operation, with repository-local
+`ghr.profile=iamdenny`. Do not switch the globally active GitHub account.
+Use isolated worktrees when another session may own the primary checkout.
+
+After deployment, remove only completed worktrees whose commits are ancestors
+of `origin/main`, whose tracked/untracked/ignored files have been inspected,
+and which have no active processes or locks. Stop only identified task-owned
+preview servers or test browsers. Use `git worktree remove`, never recursive
+filesystem deletion. Delete the corresponding local and remote feature branches
+only after confirming merge and no open PR; retain dev/main and unrelated work.
+Fast-forward the primary checkout only when safe, preserving local settings.
+
+The 2026-10-25 cleanup removed the three completed `codex/adsense-service-content`,
+`codex/guide-usability` and `codex/service-previews` worktrees and branches.
+The primary `.codex/` settings and unrelated branches were retained.
