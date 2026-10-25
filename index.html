@@ -87,9 +87,9 @@
           <div>
             <p class="eyebrow">TOOLS · PLAY · LEARNING</p>
             <h2 id="projects-title">필요한 일을<br /><span>골라보세요.</span></h2>
-            <p>서비스마다 무엇을 할 수 있는지, 어디서 시작하면 되는지 직접 안내합니다.</p>
+            <p>작은 예시로 기능을 살펴보고, 바로 사용하거나 가이드부터 읽어보세요.</p>
           </div>
-          <span class="projects-count"><strong id="service-count">9</strong> SERVICES<br /><span>새 탭에서 열립니다 ↗</span></span>
+          <span class="projects-count"><strong id="service-count">9</strong> SERVICES<br /><span>서비스는 새 탭 ↗ · 가이드는 현재 탭</span></span>
         </header>
 
         <div class="service-filters" id="service-filters" role="group" aria-label="서비스 종류 필터" hidden>
@@ -99,88 +99,134 @@
           <button type="button" data-service-filter="learn" aria-pressed="false">학습</button>
           <button type="button" data-service-filter="create" aria-pressed="false">만들기·정리</button>
         </div>
+        <p class="preview-explainer">미리보기는 기능을 설명하기 위해 만든 예시 이미지입니다.</p>
         <p class="service-results" id="service-results" aria-live="polite">서비스 9개를 소개합니다.</p>
 
         <div class="projects-grid" id="service-list">
-          <article class="project-card" data-service-category="work">
+          <article class="project-card" data-service="tools" data-service-category="work">
             <span class="project-number">01 / EVERYDAY</span>
-            <img class="project-art" src="./assets/projects/tools.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/tools.svg" alt="180분 강의를 1.5배속으로 보면 시청 시간은 120분입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>180분 → 120분</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Everyday Tools</h3>
-            <p>계산기, 단위·날짜 변환, 텍스트, 사진과 PDF 도구를 한곳에서 찾아 씁니다. 도구마다 사용 예와 지원 범위를 확인할 수 있습니다.</p>
-            <ul class="project-highlights"><li>도구 이름이나 작업으로 검색</li><li>설치 없이 브라우저에서 사용</li></ul>
-            <a class="project-address" href="https://tools.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">도구 찾아보기 <span aria-hidden="true">↗</span></a>
+            <p>계산·단위 변환부터 사진과 PDF 작업까지. 필요한 도구를 검색해서 바로 사용합니다.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://tools.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">도구 찾아보기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/study-completion-plan.html" data-guide-link data-guide-id="study-completion-plan">완강 시간 계산법 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="play">
+          <article class="project-card" data-service="games" data-service-category="play">
             <span class="project-number">02 / PLAY</span>
-            <img class="project-art" src="./assets/projects/games.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/games.svg" alt="보드 게임에서 다음 수를 고르는 예시입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>한 수씩, 가볍게</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Denny Games</h3>
-            <p>브라우저에서 바로 즐길 수 있는 게임을 장르와 플레이 방식으로 찾아봅니다. 시작하기 전에 게임 규칙과 조작 방법도 확인할 수 있습니다.</p>
-            <ul class="project-highlights"><li>보드·퍼즐·아케이드 등 장르별 탐색</li><li>규칙과 조작을 먼저 확인</li></ul>
-            <a class="project-address" href="https://games.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">게임 둘러보기 <span aria-hidden="true">↗</span></a>
+            <p>보드·퍼즐·아케이드를 브라우저에서 즐깁니다. 게임별 규칙과 조작법을 함께 확인하세요.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://games.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">게임 둘러보기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/browser-game-controls.html" data-guide-link data-guide-id="browser-game-controls">게임 조작 가이드 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="create">
+          <article class="project-card" data-service="print" data-service-category="create">
             <span class="project-number">03 / MAKE</span>
-            <img class="project-art" src="./assets/projects/print.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/print.svg" alt="7 더하기 5 등 같은 문제의 문제지와 정답지 예시입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>문제지 + 정답지</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Denny Print</h3>
-            <p>수학 문제, 빙고, 미로와 영어 단어 찾기 활동지를 만들고 편집해 인쇄합니다. 정답을 숨긴 문제지와 정답지를 따로 출력할 수 있습니다.</p>
-            <ul class="project-highlights"><li>활동 종류와 설정 선택</li><li>공유하거나 종이에 인쇄</li></ul>
-            <a class="project-address" href="https://print.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">활동지 만들기 <span aria-hidden="true">↗</span></a>
+            <p>수학 문제, 빙고, 미로와 단어 찾기를 만들고 문제지·정답지로 나눠 인쇄합니다.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://print.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">활동지 만들기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/print-answer-key.html" data-guide-link data-guide-id="print-answer-key">활동지 인쇄 방법 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="learn">
+          <article class="project-card" data-service="daily" data-service-category="learn">
             <span class="project-number">04 / DISCOVER</span>
-            <img class="project-art" src="./assets/projects/daily.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/daily.svg" alt="일본 국기를 보고 나라 이름을 고르는 연습 예시입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>국기로 만나는 세계</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Denny Daily</h3>
-            <p>매일 새로 나오는 국기 5개를 보고 나라 이름을 익힙니다. 일일 도전과 지역별 연습이 분리되어 있어 연습이 오늘의 기록을 바꾸지 않습니다.</p>
-            <ul class="project-highlights"><li>UTC 기준으로 매일 새 문제</li><li>원하는 지역을 골라 추가 연습</li></ul>
-            <a class="project-address" href="https://daily.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">오늘의 퀴즈 풀기 <span aria-hidden="true">↗</span></a>
+            <p>매일 국기 5개로 나라 이름을 익힙니다. 일일 도전과 지역별 연습을 골라 풀어보세요.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://daily.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">오늘의 퀴즈 풀기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/daily-flags.html" data-guide-link data-guide-id="daily-flags">국기 퀴즈 이용법 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="work">
+          <article class="project-card" data-service="compare" data-service-category="work">
             <span class="project-number">05 / EXPLORE</span>
-            <img class="project-art" src="./assets/projects/compare.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/compare.svg" alt="한 변이 두 배이면 면적이 네 배가 되는 정사각형 비교입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>면적 1 : 4</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Denny Compare</h3>
-            <p>나라, 행성, 높이 같은 수치를 출처와 단위가 표시된 비례 도형으로 비교합니다. 직접 기준값을 넣거나 현재 비교를 SVG로 저장할 수 있습니다.</p>
-            <ul class="project-highlights"><li>수치·단위·출처를 함께 확인</li><li>비교 설정 공유 또는 SVG 저장</li></ul>
-            <a class="project-address" href="https://compare.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">비교해 보기 <span aria-hidden="true">↗</span></a>
+            <p>나라, 행성, 높이를 비례 도형으로 비교합니다. 수치·단위·출처를 확인하고 SVG로 저장하세요.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://compare.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">비교해 보기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/compare-proportions.html" data-guide-link data-guide-id="compare-proportions">비례 도형 읽는 법 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="create">
+          <article class="project-card" data-service="bracket" data-service-category="create">
             <span class="project-number">06 / ORGANIZE</span>
-            <img class="project-art" src="./assets/projects/bracket.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/bracket.svg" alt="8명 토너먼트의 첫 라운드 4경기, 준결승 2경기, 결승 1경기입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>8명 · 3라운드 · 7경기</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Denny Bracket</h3>
-            <p>참가자와 진행 방식에 맞춰 토너먼트 대진표나 풀리그 일정을 만듭니다. 점수를 기록하고 순위를 확인한 뒤 현재 상태를 인쇄하거나 공유할 수 있습니다.</p>
-            <ul class="project-highlights"><li>승자 결정형 토너먼트</li><li>모두가 한 번씩 만나는 풀리그</li></ul>
-            <a class="project-address" href="https://bracket.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">대진표 만들기 <span aria-hidden="true">↗</span></a>
+            <p>참가자를 넣어 토너먼트나 풀리그를 만듭니다. 점수를 기록하고 현재 상태를 인쇄·공유하세요.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://bracket.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">대진표 만들기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/tournament-format.html" data-guide-link data-guide-id="tournament-format">대진 방식 선택법 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="play">
+          <article class="project-card" data-service="spin" data-service-category="play">
             <span class="project-number">07 / CHANCE</span>
-            <img class="project-art" src="./assets/projects/spin.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/spin.svg" alt="여섯 항목 룰렛과 세 명씩 두 팀으로 나눈 예시입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>추첨부터 팀 나누기</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Denny Spin</h3>
-            <p>이름 추첨 룰렛을 돌리거나 참가자를 팀으로 나눕니다. 같은 이름을 여러 줄 입력하면 각 줄은 별도 항목으로 계산되며, 공유 링크에는 입력 목록이 포함됩니다.</p>
-            <ul class="project-highlights"><li>한 명 또는 여러 명 추첨</li><li>민감한 이름은 공유 전에 확인</li></ul>
-            <a class="project-address" href="https://spin.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">룰렛과 팀 나누기 <span aria-hidden="true">↗</span></a>
+            <p>이름을 추첨하거나 참가자를 팀으로 나눕니다. 공유 링크에는 입력 목록이 포함됩니다.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://spin.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">룰렛과 팀 나누기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/random-draw-and-teams.html" data-guide-link data-guide-id="random-draw-and-teams">추첨과 팀 구성 안내 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="learn">
+          <article class="project-card" data-service="type" data-service-category="learn">
             <span class="project-number">08 / PRACTICE</span>
-            <img class="project-art" src="./assets/projects/type.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/type.svg" alt="small steps, every day라는 문장을 입력하는 예시입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>짧은 문장, 꾸준한 연습</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>Denny Type</h3>
-            <p>한국어·영어·일본어·스페인어 문장으로 타자를 연습합니다. 속도와 정확도를 확인하고, 자주 틀리는 글자를 찾아 다음 연습에 활용합니다.</p>
-            <ul class="project-highlights"><li>언어와 문장 난이도 선택</li><li>WPM과 정확도 계산 방법 안내</li></ul>
-            <a class="project-address" href="https://type.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">타자 연습 시작 <span aria-hidden="true">↗</span></a>
+            <p>여러 언어의 문장으로 타자를 연습합니다. 속도·정확도와 자주 틀리는 글자를 확인하세요.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://type.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">타자 연습 시작 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/typing-speed-and-accuracy.html" data-guide-link data-guide-id="typing-speed-and-accuracy">타자 기록 읽는 법 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
-          <article class="project-card" data-service-category="create">
+          <article class="project-card" data-service="squishy" data-service-category="create">
             <span class="project-number">09 / CREATE</span>
-            <img class="project-art" src="./assets/projects/squishy.svg" alt="" width="160" height="160" loading="lazy" decoding="async" />
+            <figure class="project-preview">
+              <img src="./assets/previews/squishy.svg" alt="도안 탐색을 표현하기 위해 직접 그린 종이 토끼 예시입니다." width="360" height="180" loading="lazy" decoding="async" />
+              <figcaption><span>고르고, 인쇄하고, 만들고</span><span class="preview-label">기능 예시</span></figcaption>
+            </figure>
             <h3>말랑모아</h3>
-            <p>종이 스퀴시 도안을 캐릭터·음식·제작자와 무료 여부로 찾아봅니다. 미리보기와 원문 링크, A4 인쇄 안내를 제공하며 이용 조건은 원문에서 확인합니다.</p>
-            <ul class="project-highlights"><li>수백 개 도안과 스퀴시북 탐색</li><li>원작자 페이지와 인쇄 방법 확인</li></ul>
-            <a class="project-address" href="https://squishy.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">도안 찾아보기 <span aria-hidden="true">↗</span></a>
+            <p>종이 스퀴시 도안을 찾아 인쇄를 준비합니다. 사용하기 전 원작자 페이지의 이용 조건을 확인하세요.</p>
+            <div class="project-actions">
+              <a class="project-address" href="https://squishy.iamdenny.com/ko/" target="_blank" rel="noopener noreferrer">도안 찾아보기 <span aria-hidden="true">↗</span></a>
+              <a class="project-guide" href="./guides/paper-squishy-printing.html" data-guide-link data-guide-id="paper-squishy-printing">도안 인쇄 준비하기 <span aria-hidden="true">→</span></a>
+            </div>
           </article>
 
         </div>
