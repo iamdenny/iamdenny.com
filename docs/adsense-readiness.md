@@ -142,3 +142,23 @@ Other agents' primary-checkout changes are excluded from these PRs.
 - [Google: pages ready for AdSense](https://support.google.com/adsense/answer/7299563?hl=en)
 - [Google: required privacy content](https://support.google.com/adsense/answer/1348695?hl=en)
 - [Google: publisher privacy policies](https://support.google.com/adsense/answer/10502938?hl=en)
+
+## Guide usability follow-up (2026-10-25)
+
+All nine first table-of-contents links now target their corresponding body
+heading instead of the table-of-contents heading. Build validation checks
+heading text as well as target existence and rejects duplicate element IDs.
+Each guide identifies the document operator and provides a correction email
+link that includes its public URL. No email is sent automatically.
+
+The study guide now compares lecture duration, playback speed, review allowance,
+study days, and daily capacity directly in the page. It preserves the original
+static examples when JavaScript is unavailable. Inputs remain in browser memory
+and are not stored or submitted. Three calculation tests cover the published
+0%/25% examples, fractional results, spare/exact capacity, and invalid ranges;
+all 11 tests passed. Local browser checks verified calculation, Enter submission,
+native invalid-input blocking, and a narrow single-column layout without
+horizontal overflow (reported CSS viewport 487px).
+
+This follow-up improves the public site while the existing review request is
+pending; it does not create a duplicate AdSense application.

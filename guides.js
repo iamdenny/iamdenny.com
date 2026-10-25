@@ -1,7 +1,34 @@
 import { createGoogleAnalytics } from './analytics.js';
 import { initializeAnalyticsConsent } from './analytics-consent.js';
+import { calculateStudyPlan } from './guide-calculations.js';
 
 initializeAnalyticsConsent(window, document, createGoogleAnalytics());
+
+const studyForm = document.querySelector('#study-calculator');
+const studyResult = document.querySelector('#study-result');
+if (studyForm && studyResult) {
+  const formatter = new Intl.NumberFormat('ko-KR', { maximumFractionDigits: 1 });
+  studyForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const read = (name) => studyForm.elements.namedItem(name).valueAsNumber;
+    const result = calculateStudyPlan({
+      minutes: read('minutes'), speed: read('speed'), days: read('days'),
+      dailyMinutes: read('dailyMinutes'), reviewPercent: read('reviewPercent')
+    });
+    if (!result) {
+      studyResult.textContent = '각 입력값의 허용 범위를 확인해 주세요.';
+      return;
+    }
+    const format = (value) => formatter.format(value);
+    const balance = Math.abs(result.balanceMinutes) < 0.000001
+      ? '사용 가능한 시간과 필요한 시간이 같습니다.'
+      : result.balanceMinutes < 0
+        ? `${format(-result.balanceMinutes)}분이 부족합니다.`
+        : `${format(result.balanceMinutes)}분의 여유가 있습니다.`;
+    studyResult.textContent = `순수 시청 ${format(result.viewingMinutes)}분, 복습 포함 필요 ${format(result.requiredMinutes)}분입니다. 사용 가능 시간은 ${format(result.capacityMinutes)}분으로 ${balance} 하루 평균 ${format(result.dailyTargetMinutes)}분이 필요합니다.`;
+  });
+  studyForm.hidden = false;
+}
 
 const participants = document.querySelector('#participants');
 const knockoutMatches = document.querySelector('#knockout-matches');

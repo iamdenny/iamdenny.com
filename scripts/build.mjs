@@ -6,6 +6,7 @@ const requiredFiles = [
   'immersive.css',
   'immersive.js',
   'guides.js',
+  'guide-calculations.js',
   'analytics.js',
   'analytics-consent.js',
   'space.js',
@@ -45,7 +46,9 @@ for (const path of guidePaths) {
 for (const path of ['index.html', ...requiredFiles.filter((file) => file.startsWith('guides/') && file.endsWith('.html')), 'privacy.html']) {
   const page = await readFile(path, 'utf8');
   if ((page.match(/<h1\b/g) || []).length !== 1) throw new Error(`${path} must have exactly one h1`);
-  const ids = new Set([...page.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]));
+  const idValues = [...page.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
+  const ids = new Set(idValues);
+  if (ids.size !== idValues.length) throw new Error(`${path} has duplicate element IDs`);
   for (const [, target] of page.matchAll(/<a\b[^>]*href="#([^"]+)"/g)) {
     if (!ids.has(target)) throw new Error(`${path} links to missing #${target}`);
   }
@@ -73,6 +76,14 @@ const guidePages = requiredFiles.filter((file) => file.startsWith('guides/') && 
 for (const path of guidePages) {
   const page = await readFile(path, 'utf8');
   if (!page.includes('<nav class="guide-toc"')) throw new Error(`${path} must include a visible table of contents`);
+  const toc = page.match(/<nav class="guide-toc"[^>]*>([\s\S]*?)<\/nav>/)?.[1] || '';
+  const body = page.split('<div class="guide-body">')[1] || '';
+  const text = (value) => value.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+  const headings = new Map([...body.matchAll(/<h2 id="([^"]+)">([\s\S]*?)<\/h2>/g)]
+    .map(([, id, label]) => [id, text(label)]));
+  for (const [, id, label] of toc.matchAll(/<a href="#([^"]+)">([\s\S]*?)<\/a>/g)) {
+    if (headings.get(id) !== text(label)) throw new Error(`${path} table of contents must target the matching body heading: #${id}`);
+  }
   if (!page.includes('<nav class="guide-related"')) throw new Error(`${path} must include related guide links`);
   if (!page.includes('data-analytics-settings')) throw new Error(`${path} must expose analytics settings`);
   if (page.includes('작성·확인 Denny Lim')) throw new Error(`${path} must not claim an unverified personal review`);
