@@ -17,6 +17,14 @@ needs a table of contents targeting body headings, related guide links, operator
 identification and a correction email with its public URL. Internal links stay
 in the same tab. Service links open a new tab with `noopener noreferrer`.
 
+The guide screenshots in `assets/guides/` are captures of live services, not
+illustrations. On 2026-10-29 the bracket image was captured from the anonymous
+eight-participant example linked in the tournament guide, and the print image
+from `https://print.iamdenny.com/ko/` using math, 1 더하기, generation 1,
+one sheet and visible answers. When the referenced screens change, recapture
+and verify those exact example settings, update the captions and checked dates,
+and never include real participant names or user data.
+
 For printable material, distinguish free access from redistribution permission.
 The original bunny illustration in `assets/previews/squishy.svg` is explanatory
 artwork, not a copied catalog character or downloadable pattern.
