@@ -77,6 +77,18 @@ for (const path of ['index.html', ...requiredFiles.filter((file) => file.startsW
 }
 
 const guidePages = requiredFiles.filter((file) => file.startsWith('guides/') && file.endsWith('.html'));
+const quickDirectories = [...html.matchAll(/<nav class="quick-directory(?: guide-directory)?"[^>]*>([\s\S]*?)<\/nav>/g)]
+  .map(([, contents]) => [...contents.matchAll(/<a\b[^>]*href="([^"]+)"/g)].map(([, href]) => href));
+const cardServices = [...html.matchAll(/<a class="project-address" href="([^"]+)"/g)].map(([, href]) => href);
+const sameUniqueLinks = (actual, expected) => actual.length === expected.length
+  && new Set(actual).size === actual.length
+  && expected.every((href) => actual.includes(href));
+if (quickDirectories.length !== 2 || !sameUniqueLinks(quickDirectories[0], cardServices)) {
+  throw new Error('Service quick links must match the service cards exactly');
+}
+if (!sameUniqueLinks(quickDirectories[1], guidePages.map((page) => `./${page}`))) {
+  throw new Error('Guide quick links must match the nine guide pages exactly');
+}
 for (const path of guidePages) {
   const page = await readFile(path, 'utf8');
   if (!page.includes('<nav class="guide-toc"')) throw new Error(`${path} must include a visible table of contents`);

@@ -23,6 +23,12 @@ They are labeled as examples, provide descriptive alternative text, and load
 lazily with explicit dimensions. The preview hover effect respects reduced
 motion. Build validation checks that local image references exist.
 
+Compact directories let visitors open any of the nine services or guides
+without scrolling through every card. The tournament and print guides also
+include dated captures of the live services using anonymous example data.
+Their source and maintenance procedure are documented in
+`docs/content-maintenance.md`.
+
 ## Visual experience
 
 `space.js` renders every 3D visual through a single WebGL context on the fixed
